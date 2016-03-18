@@ -1,4 +1,4 @@
-package sportsrecorder.sportsrecorder;
+package sports_recorder.sportsrecorder;
 
 import org.junit.Test;
 
