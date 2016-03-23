@@ -25,7 +25,8 @@
             android:id="@+id/imageView"
             android:background="@color/colorBackgroundGreen"
             android:layout_weight="1"
-            android:layout_gravity="fill_vertical"/>
+            android:layout_gravity="fill_vertical"
+            />
     </LinearLayout>
 
     <LinearLayout
