@@ -12,7 +12,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         ImageView iv = (ImageView)findViewById(R.id.imageView);
-        //iv.setImageResource(R.drawable.football_pitch);
+        iv.setImageResource(R.drawable.football_pitch);
+        iv.setScaleType(ImageView.ScaleType.FIT_XY);
     }
 
 
