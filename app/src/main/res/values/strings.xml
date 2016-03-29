@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Sports Recorder</string>
+    <string name="saved_goals">Saved Goals</string>
+    <string name="saved_goals_default">1</string>
 </resources>
