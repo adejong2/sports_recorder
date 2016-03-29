@@ -44,6 +44,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //        int defaultValue = getResources().getInteger(R.string.saved_goals_default);
         int defaultValue = 1;
         goals = sharedPref.getInt(getString(R.string.saved_goals), defaultValue);
+        goalButton.setText("" + goals);
     }
 
 
