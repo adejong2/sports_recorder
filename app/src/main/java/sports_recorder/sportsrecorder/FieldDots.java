@@ -61,6 +61,8 @@ public class FieldDots extends View implements View.OnTouchListener {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(mBitmap, 0, 0, mPaint);
+        mCanvas.drawCircle(200, 200, dotRadius, mPaint);
+
     }
 
     public boolean onTouch(View v, MotionEvent event) {

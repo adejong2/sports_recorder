@@ -39,6 +39,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         sharedPref = MainActivity.this.getPreferences(Context.MODE_PRIVATE);
 //        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPref.edit();
+        Gson gson = new Gson();
 
         // Load the data values for the app:
 //        int defaultValue = getResources().getInteger(R.string.saved_goals_default);
