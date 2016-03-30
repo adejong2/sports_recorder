@@ -9,18 +9,16 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.HashMap;
+import java.util.WeakHashMap;
 
 public class FieldDots extends View implements View.OnTouchListener {
     public static int SMALL_RADIUS = 10;
-    public static int MEDIUM_RADIUS = 20;
-    public static int LARGE_RADIUS = 40;
-    public static int AREA_RADIUS = 0;
 
     private Paint mPaint;
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private int dotRadius;
-    private HashMap pointerMap;
+    private WeakHashMap pointerMap;
 
 
     public FieldDots(Context context) {
@@ -47,7 +45,7 @@ public class FieldDots extends View implements View.OnTouchListener {
         mPaint = new Paint();
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         dotRadius = SMALL_RADIUS;
-        pointerMap = new HashMap();
+        pointerMap = new WeakHashMap();
         setOnTouchListener(this);
     }
 
@@ -57,20 +55,6 @@ public class FieldDots extends View implements View.OnTouchListener {
         super.onSizeChanged(w, h, oldw, oldh);
         mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         mCanvas = new Canvas(mBitmap);
-    }
-
-    public void setDotRadius(int r) {
-        dotRadius = r;
-    }
-
-    public void setColor(int c) {
-        mPaint.setColor(c);
-    }
-
-    public void eraseCanvas() {
-        mBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
-        invalidate();
     }
 
 

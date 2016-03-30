@@ -9,20 +9,16 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     int goals = 1; // Change this to zero later
     private Button goalButton;
-    private Paint mPaint;
-    private Bitmap mBitmap;
-    private Canvas mCanvas;
-    private int dotRadius;
+
 
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
@@ -53,21 +49,29 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
 
-//    @Override
-//    protected void onDestroy() {
-//        // Fix from stack overflow for crashing on rotation:
-//        //http://stackoverflow.com/questions/7009086/recycle-imageviews-bitmap/7009362#7009362
-//        //
-//        ImageView imageView = (ImageView)findViewById(R.id.dots_view);
-//        Drawable drawable = imageView.getDrawable();
+    @Override
+    protected void onDestroy() {
+        // Fix from stack overflow for crashing on rotation:
+        //http://stackoverflow.com/questions/7009086/recycle-imageviews-bitmap/7009362#7009362
+        //
+//        FieldDots imageView = (FieldDots)findViewById(R.id.dots_view);
+//        Drawable drawable = imageView.getDrawableState();
 //        if (drawable instanceof BitmapDrawable) {
 //            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
 //            Bitmap bitmap = bitmapDrawable.getBitmap();
 //            bitmap.recycle();
 //        }
-//
-//        super.onDestroy();
-//    }
+
+        FieldDots imageView = (FieldDots)findViewById(R.id.dots_view);
+
+        if(imageView.getBackground() != null &&
+                BitmapDrawable.class.isInstance(imageView.getBackground()))
+        {
+            ((BitmapDrawable)imageView.getBackground()).getBitmap().recycle();
+        }
+
+        super.onDestroy();
+    }
 
     public void onClick(View v) {
         if (v.getId() == R.id.button1) {
