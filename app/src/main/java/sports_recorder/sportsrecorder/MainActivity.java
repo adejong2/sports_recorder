@@ -15,13 +15,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements View.OnClickListener {
-    int goals = 1; // Change this to zero later
-    private Button goalButton;
+import java.util.ArrayList;
 
+public class MainActivity extends Activity implements View.OnClickListener {
+    int goals; // Change this to zero later
+    int num_points;
+    private Button goalButton;
+    public static ArrayList<Dot> Dots;
+    public static int timeOnClock;
 
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
+
 
 
     @Override
@@ -39,13 +44,25 @@ public class MainActivity extends Activity implements View.OnClickListener {
         sharedPref = MainActivity.this.getPreferences(Context.MODE_PRIVATE);
 //        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPref.edit();
-        Gson gson = new Gson();
+//        Gson gson = new Gson();
 
         // Load the data values for the app:
 //        int defaultValue = getResources().getInteger(R.string.saved_goals_default);
         int defaultValue = 1;
         goals = sharedPref.getInt(getString(R.string.saved_goals), defaultValue);
         goalButton.setText("" + goals);
+
+        num_points = sharedPref.getInt(getString(R.string.saved_goals), 0);
+
+
+        // Check whether we're recreating a previously destroyed instance
+        if (savedInstanceState != null) {
+            // Restore value of members from saved state
+            Dots = (ArrayList<Dot>)savedInstanceState.getSerializable(getString(R.string.saved_dots_arraylist));
+        } else {
+            // Probably initialize members with default values for a new instance
+            Dots = new ArrayList<Dot>();
+        }
 
     }
 
@@ -90,6 +107,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         editor.commit();    // Save data for the app:
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the current game state
+        savedInstanceState.putSerializable(getResources().getString(R.string.saved_dots_arraylist), Dots);
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+
 
 }
 

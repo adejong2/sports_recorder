@@ -2,4 +2,6 @@
     <string name="app_name">Sports Recorder</string>
     <string name="saved_goals">Saved Goals</string>
     <string name="saved_goals_default">1</string>
+    <string name="saved_dots_arraylist">Saved Dots ArrayList</string>
+    <string name="saved_time_on_clock">Saved Time On Clock</string>
 </resources>

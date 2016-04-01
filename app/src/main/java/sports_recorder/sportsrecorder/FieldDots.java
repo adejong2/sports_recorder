@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.WeakHashMap;
 
@@ -63,6 +64,7 @@ public class FieldDots extends View implements View.OnTouchListener {
         canvas.drawBitmap(mBitmap, 0, 0, mPaint);
         mCanvas.drawCircle(200, 200, dotRadius, mPaint);
 
+        drawAllDots();
     }
 
     public boolean onTouch(View v, MotionEvent event) {
@@ -75,7 +77,12 @@ public class FieldDots extends View implements View.OnTouchListener {
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                mCanvas.drawCircle(x, y, dotRadius, mPaint);
+                Dot d = new Dot();
+                d.x = x;
+                d.y = y;
+                drawDot(d);
+                MainActivity.Dots.add(d);
+//                mCanvas.drawCircle(x, y, dotRadius, mPaint);
 //                System.out.println("Touch coordinates : " +
 //                        String.valueOf(event.getX()) + "x" + String.valueOf(event.getY()));
                 System.out.println("x: " + x +", y: " + y);
@@ -86,5 +93,20 @@ public class FieldDots extends View implements View.OnTouchListener {
 
         }
         return true;
+    }
+
+
+    public void drawDot(Dot d) {
+        mCanvas.drawCircle(d.x, d.y, dotRadius, mPaint);
+    }
+
+    public void drawAllDots() {
+        if (MainActivity.Dots != null) {
+            for (Dot d : MainActivity.Dots) {
+                drawDot(d);
+            }
+        } else {
+            System.out.println("Dots is null!");
+        }
     }
 }
