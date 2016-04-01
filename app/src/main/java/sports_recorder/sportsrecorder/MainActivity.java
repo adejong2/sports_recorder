@@ -61,7 +61,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             Dots = (ArrayList<Dot>)savedInstanceState.getSerializable(getString(R.string.saved_dots_arraylist));
         } else {
             // Probably initialize members with default values for a new instance
-            Dots = new ArrayList<Dot>();
+            Dots = new ArrayList<>();
         }
 
     }

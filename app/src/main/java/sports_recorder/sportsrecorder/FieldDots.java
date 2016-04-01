@@ -78,14 +78,15 @@ public class FieldDots extends View implements View.OnTouchListener {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 Dot d = new Dot();
-                d.x = x;
-                d.y = y;
+                d.x = x/mBitmap.getWidth();// *getResources().getDisplayMetrics().density;
+                d.y = y/mBitmap.getHeight(); //*getResources().getDisplayMetrics().density;
                 drawDot(d);
                 MainActivity.Dots.add(d);
 //                mCanvas.drawCircle(x, y, dotRadius, mPaint);
 //                System.out.println("Touch coordinates : " +
 //                        String.valueOf(event.getX()) + "x" + String.valueOf(event.getY()));
                 System.out.println("x: " + x +", y: " + y);
+                System.out.println("d.x: " + d.x +", d.y: " + d.y);
                 invalidate();
                 break;
             default:
@@ -97,7 +98,19 @@ public class FieldDots extends View implements View.OnTouchListener {
 
 
     public void drawDot(Dot d) {
-        mCanvas.drawCircle(d.x, d.y, dotRadius, mPaint);
+        float drawx;
+        float drawy;
+        if (isPortrait()) {
+            drawx = d.x*mBitmap.getWidth(); ///getResources().getDisplayMetrics().density;
+            drawy = d.y*mBitmap.getHeight(); ///getResources().getDisplayMetrics().density;
+        } else {
+            drawx = d.y*mBitmap.getWidth();
+            drawy = d.x*mBitmap.getHeight();
+        }
+
+        System.out.println();
+
+        mCanvas.drawCircle(drawx, drawy, dotRadius, mPaint);
     }
 
     public void drawAllDots() {
@@ -108,5 +121,12 @@ public class FieldDots extends View implements View.OnTouchListener {
         } else {
             System.out.println("Dots is null!");
         }
+    }
+
+    public boolean isPortrait() {
+        boolean ret = mBitmap.getHeight() > mBitmap.getWidth();
+        if (ret) System.out.println("In portrait mode.");
+        else System.out.println("In landscape mode.");
+        return ret;
     }
 }
