@@ -78,8 +78,13 @@ public class FieldDots extends View implements View.OnTouchListener {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 Dot d = new Dot();
-                d.x = x/mBitmap.getWidth();// *getResources().getDisplayMetrics().density;
-                d.y = y/mBitmap.getHeight(); //*getResources().getDisplayMetrics().density;
+                if (isPortrait()) {
+                    d.x = x / mBitmap.getWidth();// *getResources().getDisplayMetrics().density;
+                    d.y = y / mBitmap.getHeight(); //*getResources().getDisplayMetrics().density;
+                } else {
+                    d.x = y / mBitmap.getHeight();
+                    d.y = x / mBitmap.getWidth();
+                }
                 drawDot(d);
                 MainActivity.Dots.add(d);
 //                mCanvas.drawCircle(x, y, dotRadius, mPaint);
@@ -125,8 +130,15 @@ public class FieldDots extends View implements View.OnTouchListener {
 
     public boolean isPortrait() {
         boolean ret = mBitmap.getHeight() > mBitmap.getWidth();
-        if (ret) System.out.println("In portrait mode.");
-        else System.out.println("In landscape mode.");
+//        if (ret) System.out.println("In portrait mode.");
+//        else System.out.println("In landscape mode.");
         return ret;
     }
+
+    public void setColor(int c) {
+        mPaint.setColor(c);
+    }
+
+
+
 }

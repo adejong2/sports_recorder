@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -91,13 +92,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onDestroy();
     }
 
-    public void onClick(View v) {
-        if (v.getId() == R.id.button1) {
-            Toast.makeText(this, "GOAL!!!", Toast.LENGTH_SHORT).show();
-            goals++;
-//            goalButton.setText("" + goals);
-            // Save data for the app:
-            editor.putInt(getString(R.string.saved_goals), goals);
+    public void onClick(View view) {
+        int id = view.getId();
+        FieldDots field = (FieldDots) findViewById(R.id.dots_view);
+        switch (id) {
+            case R.id.button1:
+                Toast.makeText(this, "Goal", Toast.LENGTH_SHORT).show();
+                field.setColor(Color.BLUE);
+//              goals++;
+//              goalButton.setText("" + goals);
+//              // Save data for the app:
+//              editor.putInt(getString(R.string.saved_goals), goals);
+                break;
+
         }
     }
 
