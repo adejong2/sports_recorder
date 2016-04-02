@@ -50,7 +50,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //        int defaultValue = getResources().getInteger(R.string.saved_goals_default);
         int defaultValue = 1;
         goals = sharedPref.getInt(getString(R.string.saved_goals), defaultValue);
-        goalButton.setText("" + goals);
+//        goalButton.setText("" + goals);
 
         num_points = sharedPref.getInt(getString(R.string.saved_goals), 0);
 
@@ -95,7 +95,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (v.getId() == R.id.button1) {
             Toast.makeText(this, "GOAL!!!", Toast.LENGTH_SHORT).show();
             goals++;
-            goalButton.setText("" + goals);
+//            goalButton.setText("" + goals);
             // Save data for the app:
             editor.putInt(getString(R.string.saved_goals), goals);
         }
