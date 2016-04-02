@@ -74,19 +74,62 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/scoresAndTimer"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="0dip"
 
-        android:layout_marginRight="30dip"
+        android:layout_marginRight="35dip">
 
-        android:background="#AA000000"
-        android:padding="12dip"
+        <Button
+            android:id="@+id/score1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        android:text="Timer"
-        android:textColor="#ffffffff" />
+
+            android:background="#AA000000"
+            android:padding="9dip"
+
+            android:text="A"
+            android:textColor="#ffffffff" />
+
+        <Button
+            android:id="@+id/timerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:background="#AA000000"
+            android:padding="9dip"
+
+            android:text="Clock"
+            android:textColor="#ffffffff" />
+
+        <Button
+            android:id="@+id/timerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:background="#AA000000"
+            android:padding="9dip"
+
+            android:text="Time"
+            android:textColor="#ffffffff" />
+
+        <Button
+            android:id="@+id/score2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:background="#AA000000"
+            android:padding="9dip"
+
+            android:text="B"
+            android:textColor="#ffffffff" />
+    </LinearLayout>
 
 </FrameLayout>

@@ -10,10 +10,12 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -28,7 +30,23 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
 
+    // Timer
+    long startTime = 0;
+    Button timer;
 
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            long milliseconds = System.currentTimeMillis() - startTime;
+            int minutes = (int) Math.floor((double) (milliseconds / 1000 / 60));
+
+            timer.setText(String.format("%d:%02d", minutes, milliseconds/1000));
+
+            timerHandler.postDelayed(this, 500);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +77,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // Check whether we're recreating a previously destroyed instance
         if (savedInstanceState != null) {
             // Restore value of members from saved state
-            Dots = (ArrayList<Dot>)savedInstanceState.getSerializable(getString(R.string.saved_dots_arraylist));
+            Dots = (ArrayList<Dot>) savedInstanceState.getSerializable(getString(R.string.saved_dots_arraylist));
         } else {
             // Probably initialize members with default values for a new instance
             Dots = new ArrayList<>();
         }
 
+        //Timer
+        timer = (Button) findViewById(R.id.timerText);
+        Button timerButton = (Button) findViewById(R.id.timerButton);
+        timerButton.setText("start");
+        timerButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Button timerButton = (Button) v;
+                if (timerButton.getText().equals("stop")) {
+                    timerHandler.removeCallbacks(timerRunnable);
+                    timerButton.setText("start");
+                } else {
+                    startTime = System.currentTimeMillis();
+                    timerHandler.postDelayed(timerRunnable, 0);
+                    timerButton.setText("stop");
+                }
+            }
+        });
     }
 
 
@@ -81,12 +118,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //            bitmap.recycle();
 //        }
 
-        FieldDots imageView = (FieldDots)findViewById(R.id.dots_view);
+        FieldDots imageView = (FieldDots) findViewById(R.id.dots_view);
 
-        if(imageView.getBackground() != null &&
-                BitmapDrawable.class.isInstance(imageView.getBackground()))
-        {
-            ((BitmapDrawable)imageView.getBackground()).getBitmap().recycle();
+        if (imageView.getBackground() != null &&
+                BitmapDrawable.class.isInstance(imageView.getBackground())) {
+            ((BitmapDrawable) imageView.getBackground()).getBitmap().recycle();
         }
 
         super.onDestroy();
@@ -112,6 +148,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onPause() {
         super.onPause();    // Call the superclass method first.
 
+        //timerHandler.removeCallbacks((timerRunnable));
+        //Button timerButton = (Button)findViewById(R.id.timerButton);
+        //timerButton.setText("start");
+
         editor.commit();    // Save data for the app:
     }
 
@@ -123,7 +163,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
     }
-
 
 
 }
