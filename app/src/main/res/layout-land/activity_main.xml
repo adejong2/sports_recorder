@@ -54,7 +54,7 @@
             android:id="@+id/clockButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/time_48"
+            android:src="@drawable/time"
             />
 
         <Button
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:drawableLeft="@drawable/football_48"/>
+            android:drawableLeft="@drawable/football"/>
 
         <Button
             android:id="@+id/button4"
