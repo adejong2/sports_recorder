@@ -82,7 +82,7 @@ public class FieldDots extends View implements View.OnTouchListener {
                     d.x = x / mBitmap.getWidth();// *getResources().getDisplayMetrics().density;
                     d.y = y / mBitmap.getHeight(); //*getResources().getDisplayMetrics().density;
                 } else {
-                    d.x = y / mBitmap.getHeight();
+                    d.x = 1 - y / mBitmap.getHeight();
                     d.y = x / mBitmap.getWidth();
                 }
                 drawDot(d);
@@ -109,8 +109,8 @@ public class FieldDots extends View implements View.OnTouchListener {
             drawx = d.x*mBitmap.getWidth(); ///getResources().getDisplayMetrics().density;
             drawy = d.y*mBitmap.getHeight(); ///getResources().getDisplayMetrics().density;
         } else {
-            drawx = d.y*mBitmap.getWidth();
-            drawy = d.x*mBitmap.getHeight();
+            drawx = d.y *mBitmap.getWidth();
+            drawy = (1 - d.x)*mBitmap.getHeight();
         }
 
         System.out.println();
