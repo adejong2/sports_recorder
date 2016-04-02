@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,14 +11,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="sports_recorder.sportsrecorder.MainActivity">
 
-    <sports_recorder.sportsrecorder.FieldDots
-        android:id="@+id/dots_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="fill_vertical"
-        android:layout_weight="1"
-        android:background="@drawable/football_pitch" />
+    <!--<LinearLayout-->
+        <!--android:id="@+id/field_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_gravity="fill_vertical"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@drawable/football_pitch"-->
+        <!--android:orientation="vertical">-->
 
+        <sports_recorder.sportsrecorder.FieldDots
+            android:id="@+id/dots_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="fill_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/football_pitch" />
+
+
+    <!--</LinearLayout>-->
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -31,84 +38,34 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/goalButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/soccer_goal_net"
-            android:text="" />
+            android:text=""
+            android:drawableLeft="@drawable/soccer_goal_net"/>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/SOGButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SOG" />
 
-        <ImageButton
-            android:id="@+id/clockButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/time" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/shotButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=""
             android:drawableLeft="@drawable/football"
-            android:text="" />
+            />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/penaltyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Card" />
 
 
+
     </LinearLayout>
 </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginTop="132dip" >
-
-        <Button
-            android:id="@+id/score1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#AA000000"
-            android:padding="9dip"
-            android:text="A"
-            android:textColor="#ffffffff" />
-
-        <Button
-            android:id="@+id/timerButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="9dip"
-            android:text="Clock"
-            android:textColor="#ffffffff"
-            android:backgroundTint="#AA000000"
-            android:backgroundTintMode="src_over"
-            android:background="@mipmap/timer_clock" />
-
-        <Button
-            android:id="@+id/timerText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#AA000000"
-            android:padding="9dip"
-            android:text="Time"
-            android:textColor="#ffffffff" />
-
-        <Button
-            android:id="@+id/score2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#AA000000"
-            android:padding="9dip"
-            android:text="B"
-            android:textColor="#ffffffff" />
-    </LinearLayout>
-</FrameLayout>

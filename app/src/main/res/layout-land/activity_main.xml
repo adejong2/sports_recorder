@@ -34,42 +34,32 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/goalButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/soccer_goal_net"
-                android:text="" />
+                android:text=""
+                android:drawableLeft="@drawable/soccer_goal_net"/>
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/SOGButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SOG" />
 
-            <ImageButton
-                android:id="@+id/clockButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/time" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/shotButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text=""
                 android:drawableLeft="@drawable/football"
-                android:text="" />
+                />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/penaltyButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Card" />
-
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="5" />
 
         </LinearLayout>
     </LinearLayout>

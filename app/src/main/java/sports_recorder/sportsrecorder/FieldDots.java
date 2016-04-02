@@ -3,6 +3,7 @@ package sports_recorder.sportsrecorder;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -77,6 +78,11 @@ public class FieldDots extends View implements View.OnTouchListener {
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
+
+                // If the event type is uninitialized, skip it
+                if (MainActivity.getEventType() == R.string.event_type_null)
+                    break;
+
                 Dot d = new Dot();
                 if (isPortrait()) {
                     d.x = x / mBitmap.getWidth();// *getResources().getDisplayMetrics().density;
@@ -85,8 +91,10 @@ public class FieldDots extends View implements View.OnTouchListener {
                     d.x = 1 - y / mBitmap.getHeight();
                     d.y = x / mBitmap.getWidth();
                 }
-                drawDot(d);
+                d.type = MainActivity.getEventType();
                 MainActivity.Dots.add(d);
+                MainActivity.resetEventType();
+                drawDot(d);
 //                mCanvas.drawCircle(x, y, dotRadius, mPaint);
 //                System.out.println("Touch coordinates : " +
 //                        String.valueOf(event.getX()) + "x" + String.valueOf(event.getY()));
@@ -112,8 +120,8 @@ public class FieldDots extends View implements View.OnTouchListener {
             drawx = d.y *mBitmap.getWidth();
             drawy = (1 - d.x)*mBitmap.getHeight();
         }
-
-        System.out.println();
+//        System.out.println();
+        setColorByEvent(d.type);
 
         mCanvas.drawCircle(drawx, drawy, dotRadius, mPaint);
     }
@@ -129,14 +137,35 @@ public class FieldDots extends View implements View.OnTouchListener {
     }
 
     public boolean isPortrait() {
-        boolean ret = mBitmap.getHeight() > mBitmap.getWidth();
+//        boolean ret = mBitmap.getHeight() > mBitmap.getWidth();
 //        if (ret) System.out.println("In portrait mode.");
 //        else System.out.println("In landscape mode.");
-        return ret;
+//        return ret;
+        return mBitmap.getHeight() > mBitmap.getWidth();
     }
 
     public void setColor(int c) {
         mPaint.setColor(c);
+    }
+
+    public void setColorByEvent(int event) {
+        switch (event) {
+            case R.string.event_type_goal:
+                setColor(Color.CYAN);
+                break;
+            case R.string.event_type_shot_on_goal:
+                setColor(Color.BLUE);
+                break;
+            case R.string.event_type_shot:
+                setColor(Color.LTGRAY);
+                break;
+            case R.string.event_type_penalty:
+                setColor(Color.RED);
+                break;
+            case R.string.event_type_null:
+                setColor(Color.BLACK);
+                break;
+        }
     }
 
 

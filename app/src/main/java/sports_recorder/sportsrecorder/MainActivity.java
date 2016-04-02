@@ -23,9 +23,10 @@ import java.util.ArrayList;
 public class MainActivity extends Activity implements View.OnClickListener {
     int goals; // Change this to zero later
     int num_points;
-    private Button goalButton;
+    private Button goalButton, sogButton, shotButton, penaltyButton;
     public static ArrayList<Dot> Dots;
     public static int timeOnClock;
+    public static int eventType = R.string.event_type_null;
 
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
@@ -55,8 +56,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
         // Set button listeners:
-        goalButton = (Button) findViewById(R.id.button1);
+        goalButton = (Button) findViewById(R.id.goalButton);
         goalButton.setOnClickListener(this);
+
+        sogButton = (Button) findViewById(R.id.SOGButton);
+        sogButton.setOnClickListener(this);
+
+        shotButton = (Button) findViewById(R.id.shotButton);
+        shotButton.setOnClickListener(this);
+
+        penaltyButton = (Button) findViewById(R.id.penaltyButton);
+        penaltyButton.setOnClickListener(this);
 
 
         // SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE); //For fragments
@@ -132,15 +142,30 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int id = view.getId();
         FieldDots field = (FieldDots) findViewById(R.id.dots_view);
         switch (id) {
-            case R.id.button1:
-                Toast.makeText(this, "Goal", Toast.LENGTH_SHORT).show();
-                field.setColor(Color.BLUE);
+            case R.id.goalButton:
+                Toast.makeText(this, getString(R.string.event_type_goal), Toast.LENGTH_SHORT).show();
+                eventType = R.string.event_type_goal;
+//                field.setColor(Color.CYAN);
 //              goals++;
 //              goalButton.setText("" + goals);
 //              // Save data for the app:
 //              editor.putInt(getString(R.string.saved_goals), goals);
                 break;
-
+            case R.id.SOGButton:
+                Toast.makeText(this, getString(R.string.event_type_shot_on_goal), Toast.LENGTH_SHORT).show();
+                eventType = R.string.event_type_shot_on_goal;
+//                field.setColor(Color.BLUE);
+                break;
+            case R.id.shotButton:
+                Toast.makeText(this, getString(R.string.event_type_shot), Toast.LENGTH_SHORT).show();
+                eventType = R.string.event_type_shot;
+//                field.setColor(Color.LTGRAY);
+                break;
+            case R.id.penaltyButton:
+                Toast.makeText(this, getString(R.string.event_type_penalty), Toast.LENGTH_SHORT).show();
+                eventType = R.string.event_type_penalty;
+//                field.setColor(Color.RED);
+                break;
         }
     }
 
@@ -162,6 +187,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
+    }
+
+
+    public static int getEventType() {
+        return eventType;
+    }
+
+    public static void resetEventType() {
+        eventType = R.string.event_type_null;
     }
 
 

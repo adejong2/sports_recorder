@@ -4,4 +4,9 @@
     <string name="saved_goals_default">1</string>
     <string name="saved_dots_arraylist">Saved Dots ArrayList</string>
     <string name="saved_time_on_clock">Saved Time On Clock</string>
+    <string name="event_type_goal">Goal</string>
+    <string name="event_type_shot_on_goal">Shot on goal</string>
+    <string name="event_type_shot">Shot</string>
+    <string name="event_type_penalty">Penalty</string>
+    <string name="event_type_null">null</string>
 </resources>
