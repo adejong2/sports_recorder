@@ -9,4 +9,6 @@
     <string name="event_type_shot">Shot</string>
     <string name="event_type_penalty">Penalty</string>
     <string name="event_type_null">null</string>
+    <string name="saved_start_time">Saved Start Time</string>
+    <string name="saved_clock_is_running">Saved Clock Is Running</string>
 </resources>

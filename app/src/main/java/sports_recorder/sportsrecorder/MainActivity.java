@@ -27,6 +27,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public static ArrayList<Dot> Dots;
     public static int timeOnClock;
     public static int eventType = R.string.event_type_null;
+    public boolean clockIsRunning;      // True if the clock should immediately start running
+    public boolean dirtyClock = false;  // True if there are pending changes to timeOnClock
 
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
@@ -40,11 +42,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         @Override
         public void run() {
-            long milliseconds = System.currentTimeMillis() - startTime;
-            int minutes = (int) Math.floor((double) (milliseconds / 1000 / 60));
+            long currentTime = System.currentTimeMillis();
+            long milliseconds = currentTime - startTime;
+            int seconds = (int) milliseconds / 1000;
+            if (seconds > 0) {
+                seconds += timeOnClock;
+                int minutes = (int) Math.floor((double) (seconds / 60));
 
-            timer.setText(String.format("%d:%02d", minutes, milliseconds/1000));
-
+                timer.setText(String.format("%d:%02d", minutes, seconds % 60));
+            }
             timerHandler.postDelayed(this, 500);
         }
     };
@@ -77,38 +83,58 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         // Load the data values for the app:
 //        int defaultValue = getResources().getInteger(R.string.saved_goals_default);
-        int defaultValue = 1;
+        int defaultValue = 0;
         goals = sharedPref.getInt(getString(R.string.saved_goals), defaultValue);
 //        goalButton.setText("" + goals);
-
         num_points = sharedPref.getInt(getString(R.string.saved_goals), 0);
+
 
 
         // Check whether we're recreating a previously destroyed instance
         if (savedInstanceState != null) {
             // Restore value of members from saved state
             Dots = (ArrayList<Dot>) savedInstanceState.getSerializable(getString(R.string.saved_dots_arraylist));
+            timeOnClock = savedInstanceState.getInt(getString(R.string.saved_time_on_clock), 0);
+            this.startTime = savedInstanceState.getLong(getString(R.string.saved_start_time), System.currentTimeMillis());
+            this.clockIsRunning = savedInstanceState.getBoolean(getString(R.string.saved_clock_is_running), false);
         } else {
             // Probably initialize members with default values for a new instance
             Dots = new ArrayList<>();
+            timeOnClock = 0;
+            this.clockIsRunning = false;
         }
 
         //Timer
         timer = (Button) findViewById(R.id.timerText);
+        if (timeOnClock > 0) {
+            timer.setText(String.format("%d:%02d", timeOnClock / 60, timeOnClock % 60));
+        }
         Button timerButton = (Button) findViewById(R.id.timerButton);
-        timerButton.setText("start");
+
+
+        if (clockIsRunning) {
+            startTime = System.currentTimeMillis();
+            timerHandler.postDelayed(timerRunnable, 0);
+            timerButton.setText("stop");
+            dirtyClock = true;
+        } else {timerButton.setText("start");}
+
         timerButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Button timerButton = (Button) v;
-                if (timerButton.getText().equals("stop")) {
+                if (timerButton.getText().equals("stop")) { // Stop the clock
                     timerHandler.removeCallbacks(timerRunnable);
                     timerButton.setText("start");
-                } else {
+                    updateTimeOnClock();
+                    clockIsRunning = false;
+                } else {    // Start the clock:
                     startTime = System.currentTimeMillis();
                     timerHandler.postDelayed(timerRunnable, 0);
                     timerButton.setText("stop");
+                    dirtyClock = true;
+                    clockIsRunning = true;
                 }
             }
         });
@@ -184,6 +210,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the current game state
         savedInstanceState.putSerializable(getResources().getString(R.string.saved_dots_arraylist), Dots);
+        updateTimeOnClock();
+        savedInstanceState.putInt(getString(R.string.saved_time_on_clock), timeOnClock);
+        savedInstanceState.putLong(getString(R.string.saved_start_time), this.startTime);
+        savedInstanceState.putBoolean(getString(R.string.saved_clock_is_running), this.clockIsRunning);
 
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
@@ -198,6 +228,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
         eventType = R.string.event_type_null;
     }
 
+    public void updateTimeOnClock() {
+        if (!dirtyClock)
+            return;
+
+        dirtyClock = false;
+        long current = System.currentTimeMillis();
+        long milliseconds = current - this.startTime;
+        this.startTime = current;
+        timeOnClock += (int) milliseconds / 1000;
+//        System.out.println(timeOnClock);
+    }
 
 }
 
