@@ -25,7 +25,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     int num_points;
     private Button goalButton, sogButton, shotButton, penaltyButton;
     public static ArrayList<Dot> Dots;
-    public static int timeOnClock;
+    public static int timeOnClock;      // Time of player on field
     public static int eventType = R.string.event_type_null;
     public boolean clockIsRunning;      // True if the clock should immediately start running
     public boolean dirtyClock = false;  // True if there are pending changes to timeOnClock
