@@ -240,6 +240,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //        System.out.println(timeOnClock);
     }
 
+    public int getTimeOnClock() {
+        long milliseconds = 0;
+        if (clockIsRunning)
+            milliseconds = System.currentTimeMillis() - this.startTime;
+        return timeOnClock + (int) milliseconds / 1000;
+    }
+
 }
 
 

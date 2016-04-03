@@ -1,5 +1,6 @@
 package sports_recorder.sportsrecorder;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -91,6 +92,9 @@ public class FieldDots extends View implements View.OnTouchListener {
                     d.x = 1 - y / mBitmap.getHeight();
                     d.y = x / mBitmap.getWidth();
                 }
+                MainActivity main = (MainActivity) getContext();
+                d.timestamp = main.getTimeOnClock();
+                System.out.println("timestamp: " + d.timestamp);
                 d.type = MainActivity.getEventType();
                 MainActivity.Dots.add(d);
                 MainActivity.resetEventType();
