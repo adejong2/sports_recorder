@@ -23,12 +23,13 @@ import java.util.ArrayList;
 public class MainActivity extends Activity implements View.OnClickListener {
     int goals; // Change this to zero later
     int num_points;
-    private Button goalButton, sogButton, shotButton, penaltyButton;
+    private Button goalButton, sogButton, shotButton, penaltyButton, halfButton, scoreButton1, scoreButton2;
     public static ArrayList<Dot> Dots;
     public static int timeOnClock;      // Time of player on field
     public static int eventType = R.string.event_type_null;
     public boolean clockIsRunning;      // True if the clock should immediately start running
     public boolean dirtyClock = false;  // True if there are pending changes to timeOnClock
+    public int scoreA, scoreB, half, halfScoreA, halfScoreB;
 
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
@@ -74,6 +75,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
         penaltyButton = (Button) findViewById(R.id.penaltyButton);
         penaltyButton.setOnClickListener(this);
 
+        scoreButton1 = (Button) findViewById(R.id.score1);
+        scoreButton1.setOnClickListener(this);
+
+        scoreButton2 = (Button) findViewById(R.id.score2);
+        scoreButton2.setOnClickListener(this);
+
+        halfButton = (Button) findViewById(R.id.halfButton);
+        halfButton.setOnClickListener(this);
+
 
         // SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE); //For fragments
         sharedPref = MainActivity.this.getPreferences(Context.MODE_PRIVATE);
@@ -97,12 +107,33 @@ public class MainActivity extends Activity implements View.OnClickListener {
             timeOnClock = savedInstanceState.getInt(getString(R.string.saved_time_on_clock), 0);
             this.startTime = savedInstanceState.getLong(getString(R.string.saved_start_time), System.currentTimeMillis());
             this.clockIsRunning = savedInstanceState.getBoolean(getString(R.string.saved_clock_is_running), false);
+            this.scoreA = savedInstanceState.getInt(getString(R.string.saved_scoreA), 0);
+            this.scoreB = savedInstanceState.getInt(getString(R.string.saved_scoreB), 0);
+            this.half = savedInstanceState.getInt(getString(R.string.saved_half), 1);
+
         } else {
             // Probably initialize members with default values for a new instance
             Dots = new ArrayList<>();
             timeOnClock = 0;
             this.clockIsRunning = false;
+            scoreA = 0;
+            scoreB = 0;
+            half = 1;
         }
+
+        // Scores and Half:
+        if (half==1) {
+            scoreButton1.setText("" + scoreA);
+            scoreButton2.setText("" + scoreB);
+        } else {
+            halfButton.setText("2nd");
+            scoreButton1.setText("" + scoreB);
+            int color = scoreButton1.getCurrentTextColor();
+            scoreButton1.setTextColor(scoreButton2.getCurrentTextColor());
+            scoreButton2.setText("" + scoreA);
+            scoreButton2.setTextColor(color);
+        }
+
 
         //Timer
         timer = (Button) findViewById(R.id.timerText);
@@ -192,6 +223,28 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 eventType = R.string.event_type_penalty;
 //                field.setColor(Color.RED);
                 break;
+            case R.id.halfButton:
+//                Toast.makeText(this, "Half Time", Toast.LENGTH_SHORT).show();
+                setHalfTime();
+                break;
+            case R.id.score1:
+                if ((half % 2) == 1) {
+                    scoreA++;
+                    scoreButton1.setText("" + scoreA);
+                } else {
+                    scoreB++;
+                    scoreButton1.setText("" + scoreB);
+                }
+                break;
+            case R.id.score2:
+                if ((half % 2) == 0) {
+                    scoreA++;
+                    scoreButton2.setText("" + scoreA);
+                } else {
+                    scoreB++;
+                    scoreButton2.setText("" + scoreB);
+                }
+                break;
         }
     }
 
@@ -214,6 +267,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         savedInstanceState.putInt(getString(R.string.saved_time_on_clock), timeOnClock);
         savedInstanceState.putLong(getString(R.string.saved_start_time), this.startTime);
         savedInstanceState.putBoolean(getString(R.string.saved_clock_is_running), this.clockIsRunning);
+        savedInstanceState.putInt(getString(R.string.saved_scoreA), scoreA);
+        savedInstanceState.putInt(getString(R.string.saved_scoreB), scoreB);
+        savedInstanceState.putInt(getString(R.string.saved_half), half);
+        savedInstanceState.putInt(getString(R.string.saved_half_scoreA), halfScoreA);
+        savedInstanceState.putInt(getString(R.string.saved_half_scoreB), halfScoreB);
 
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
@@ -245,6 +303,37 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (clockIsRunning)
             milliseconds = System.currentTimeMillis() - this.startTime;
         return timeOnClock + (int) milliseconds / 1000;
+    }
+
+    // Process the switch to the second half
+    public void setHalfTime() {
+        if (half > 1)
+            return;;
+
+        Toast.makeText(this, "Half Time", Toast.LENGTH_SHORT).show();
+
+        half++;
+
+        // Teams switch home fields
+        int color = scoreButton1.getCurrentTextColor();
+        scoreButton1.setTextColor(scoreButton2.getCurrentTextColor());
+        scoreButton2.setTextColor(color);
+
+        scoreButton1.setText("" + scoreB);
+        scoreButton2.setText("" + scoreA);
+
+        halfButton.setText(half + "nd");
+
+        halfScoreA = scoreA;
+        halfScoreB = scoreB;
+
+        FieldDots fieldDots = (FieldDots) findViewById(R.id.dots_view);
+        fieldDots.clear();
+        fieldDots.invalidate();
+    }
+
+    public int getHalf() {
+        return this.half;
     }
 
 }

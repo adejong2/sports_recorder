@@ -11,4 +11,9 @@
     <string name="event_type_null">null</string>
     <string name="saved_start_time">Saved Start Time</string>
     <string name="saved_clock_is_running">Saved Clock Is Running</string>
+    <string name="saved_scoreA">Saved Score A</string>
+    <string name="saved_scoreB">Saved Score B</string>
+    <string name="saved_half">Saved Half</string>
+    <string name="saved_half_scoreA">Saved Half Score A</string>
+    <string name="saved_half_scoreB">Saved Half Score B</string>
 </resources>

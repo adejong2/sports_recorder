@@ -77,23 +77,17 @@
             android:id="@+id/score1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-
             android:background="#AA000000"
             android:padding="9dip"
-
             android:text="A"
-            android:textColor="#ffffffff" />
+            android:textColor="@color/colorMediumRed" />
 
         <Button
             android:id="@+id/timerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-
             android:background="#AA000000"
             android:padding="9dip"
-
             android:text="Clock"
             android:textColor="#ffffffff" />
 
@@ -101,25 +95,28 @@
             android:id="@+id/timerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-
             android:background="#AA000000"
             android:padding="9dip"
-
             android:text="Time"
+            android:textColor="#ffffffff" />
+
+        <Button
+            android:id="@+id/halfButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#AA000000"
+            android:padding="9dip"
+            android:text="1st"
             android:textColor="#ffffffff" />
 
         <Button
             android:id="@+id/score2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-
             android:background="#AA000000"
             android:padding="9dip"
-
             android:text="B"
-            android:textColor="#ffffffff" />
+            android:textColor="@color/colorMediumBlue" />
     </LinearLayout>
 
 </FrameLayout>

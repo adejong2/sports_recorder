@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -94,7 +95,9 @@ public class FieldDots extends View implements View.OnTouchListener {
                 }
                 MainActivity main = (MainActivity) getContext();
                 d.timestamp = main.getTimeOnClock();
-                System.out.println("timestamp: " + d.timestamp);
+                d.half = main.getHalf();
+                System.out.println("d.half: " + d.half + ", main.half: " + main.getHalf());
+//                System.out.println("timestamp: " + d.timestamp);
                 d.type = MainActivity.getEventType();
                 MainActivity.Dots.add(d);
                 MainActivity.resetEventType();
@@ -115,6 +118,10 @@ public class FieldDots extends View implements View.OnTouchListener {
 
 
     public void drawDot(Dot d) {
+        MainActivity main = (MainActivity) getContext();
+        if (d.half != main.getHalf())
+            return;
+
         float drawx;
         float drawy;
         if (isPortrait()) {
@@ -172,6 +179,8 @@ public class FieldDots extends View implements View.OnTouchListener {
         }
     }
 
-
+    public void clear() {
+        mCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+    }
 
 }
