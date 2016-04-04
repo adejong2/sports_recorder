@@ -11,16 +11,27 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener, ListView.OnItemClickListener {
     int goals; // Change this to zero later
     int num_points;
     private Button goalButton, sogButton, shotButton, penaltyButton, halfButton, scoreButton1, scoreButton2;
@@ -33,6 +44,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
+
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerListView;
 
     // Timer
     long startTime = 0;
@@ -59,9 +73,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Disable original title bar
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_main);
 
+        //Create new Action Bar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setActionBar(toolbar);
 
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                mDrawerLayout.openDrawer(mDrawerListView);
+            }
+        });
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerListView = (ListView) findViewById(R.id.drawer_list_view);
+        mDrawerListView.setOnItemClickListener(this);
+
+        String items[] = new String[] { "Data Entry","Summary"};
+        ListAdapter listAdapter = new ArrayAdapter<>(this, R.layout.nav_drawer_list_item, items);
+        mDrawerListView.setAdapter(listAdapter);
         // Set button listeners:
         goalButton = (Button) findViewById(R.id.goalButton);
         goalButton.setOnClickListener(this);
@@ -169,6 +205,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == android.R.id.home) {
+//            getActionBar().setTitle("buttonclicked");
+//            mDrawerLayout.openDrawer(mDrawerListView);
+//            return true;
+//        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -332,10 +378,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
         fieldDots.invalidate();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
     public int getHalf() {
         return this.half;
     }
 
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ListView lv = (ListView) parent;
+        mDrawerLayout.closeDrawer(Gravity.LEFT);
+    }
 }
 
 
