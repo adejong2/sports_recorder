@@ -32,8 +32,10 @@
     <!-- Drawer items here -->
     <ListView
         android:id="@+id/drawer_list_view"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start" />
+        android:layout_gravity="start"
+        android:background="#212121" />
+
 
 </android.support.v4.widget.DrawerLayout>
