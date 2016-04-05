@@ -2,6 +2,7 @@ package sports_recorder.sportsrecorder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -29,10 +30,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends Activity implements View.OnClickListener, ListView.OnItemClickListener {
-    int goals; // Change this to zero later
+    private GameManager gm = GameManager.getInstance();
+
+    public int goals, shotsOnGoal, shots, penalties;
     int num_points;
     private Button goalButton, sogButton, shotButton, penaltyButton, halfButton, scoreButton1, scoreButton2;
     public static ArrayList<Dot> Dots;
@@ -41,12 +47,15 @@ public class MainActivity extends Activity implements View.OnClickListener, List
     public boolean clockIsRunning;      // True if the clock should immediately start running
     public boolean dirtyClock = false;  // True if there are pending changes to timeOnClock
     public int scoreA, scoreB, half, halfScoreA, halfScoreB;
+    public String gameDateStr;
 
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
+
+    private String items[] = new String[] { "Data Entry","Summary"};
 
     // Timer
     long startTime = 0;
@@ -95,7 +104,7 @@ public class MainActivity extends Activity implements View.OnClickListener, List
         mDrawerListView = (ListView) findViewById(R.id.drawer_list_view);
         mDrawerListView.setOnItemClickListener(this);
 
-        String items[] = new String[] { "Data Entry","Summary"};
+
         ListAdapter listAdapter = new ArrayAdapter<>(this, R.layout.nav_drawer_list_item, items);
         mDrawerListView.setAdapter(listAdapter);
         // Set button listeners:
@@ -146,7 +155,13 @@ public class MainActivity extends Activity implements View.OnClickListener, List
             this.scoreA = savedInstanceState.getInt(getString(R.string.saved_scoreA), 0);
             this.scoreB = savedInstanceState.getInt(getString(R.string.saved_scoreB), 0);
             this.half = savedInstanceState.getInt(getString(R.string.saved_half), 1);
-
+            this.halfScoreA = savedInstanceState.getInt(getString(R.string.saved_half_scoreA), 0);
+            this.halfScoreB = savedInstanceState.getInt(getString(R.string.saved_scoreB), 0);
+            this.goals = savedInstanceState.getInt(getString(R.string.saved_goals), 0);
+            this.shotsOnGoal = savedInstanceState.getInt(getString(R.string.saved_shots_on_goal), 0);
+            this.shots = savedInstanceState.getInt(getString(R.string.saved_shots), 0);
+            this.penalties = savedInstanceState.getInt(getString(R.string.saved_penalties), 0);
+            this.gameDateStr = savedInstanceState.getString(getString(R.string.saved_game_date), "");
         } else {
             // Probably initialize members with default values for a new instance
             Dots = new ArrayList<>();
@@ -155,7 +170,19 @@ public class MainActivity extends Activity implements View.OnClickListener, List
             scoreA = 0;
             scoreB = 0;
             half = 1;
+            halfScoreA = 0;
+            halfScoreB = 0;
+            goals = 0;
+            shotsOnGoal = 0;
+            shots = 0;
+            penalties = 0;
+
+            Date today = Calendar.getInstance().getTime();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+            gameDateStr = formatter.format(today);
         }
+
+//        System.out.println("Date: " + gameDateStr);
 
         // Scores and Half:
         if (half==1) {
@@ -308,6 +335,14 @@ public class MainActivity extends Activity implements View.OnClickListener, List
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the current game state
+        saveGameState(savedInstanceState);
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    // Save the game state to a bundle for onSaveInstanceState and for summary view
+    public void saveGameState(Bundle savedInstanceState) {
         savedInstanceState.putSerializable(getResources().getString(R.string.saved_dots_arraylist), Dots);
         updateTimeOnClock();
         savedInstanceState.putInt(getString(R.string.saved_time_on_clock), timeOnClock);
@@ -318,9 +353,14 @@ public class MainActivity extends Activity implements View.OnClickListener, List
         savedInstanceState.putInt(getString(R.string.saved_half), half);
         savedInstanceState.putInt(getString(R.string.saved_half_scoreA), halfScoreA);
         savedInstanceState.putInt(getString(R.string.saved_half_scoreB), halfScoreB);
+        savedInstanceState.putInt(getString(R.string.saved_goals), goals);
+        savedInstanceState.putInt(getString(R.string.saved_shots_on_goal), shotsOnGoal);
+        savedInstanceState.putInt(getString(R.string.saved_shots), shots);
+        savedInstanceState.putInt(getString(R.string.saved_penalties), penalties);
+        savedInstanceState.putString(getString(R.string.saved_game_date), gameDateStr);
 
-        // Always call the superclass so it can save the view hierarchy state
-        super.onSaveInstanceState(savedInstanceState);
+        // Update the game at position 0 to this game:
+        gm.setGame(0, savedInstanceState, getApplicationContext());
     }
 
 
@@ -392,6 +432,19 @@ public class MainActivity extends Activity implements View.OnClickListener, List
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ListView lv = (ListView) parent;
+
+        Toast.makeText(this, items[position], Toast.LENGTH_SHORT).show();
+
+        if (items[position].equals("Summary")) {
+
+            Intent intent = new Intent(this, SummaryDetailActivity.class);
+            intent.putExtra("POSITION", 0); // Game position, not drawer menu position
+            Bundle extras = intent.getExtras();
+            saveGameState(extras); // Pass game info bundle at start. Then need a way need to pass it to the fragment
+            gm.setGame(0, extras, getApplicationContext()); // Sets game 0
+            startActivity(intent);
+        }
+
         mDrawerLayout.closeDrawer(Gravity.LEFT);
     }
 }

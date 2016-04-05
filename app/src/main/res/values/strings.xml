@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Sports Recorder</string>
     <string name="saved_goals">Saved Goals</string>
+    <string name="saved_shots_on_goal">Saved Shots On Goal</string>
+    <string name="saved_shots">Saved Shots</string>
+    <string name="saved_penalties">Saved Penalties</string>
     <string name="saved_goals_default">1</string>
     <string name="saved_dots_arraylist">Saved Dots ArrayList</string>
     <string name="saved_time_on_clock">Saved Time On Clock</string>
@@ -16,4 +19,5 @@
     <string name="saved_half">Saved Half</string>
     <string name="saved_half_scoreA">Saved Half Score A</string>
     <string name="saved_half_scoreB">Saved Half Score B</string>
+    <string name="saved_game_date">Saved Game Date</string>
 </resources>

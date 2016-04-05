@@ -179,6 +179,7 @@ public class FieldDots extends View implements View.OnTouchListener {
         }
     }
 
+
     public void clear() {
         mCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
     }
