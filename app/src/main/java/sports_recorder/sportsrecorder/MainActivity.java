@@ -439,9 +439,11 @@ public class MainActivity extends Activity implements View.OnClickListener, List
 
             Intent intent = new Intent(this, SummaryDetailActivity.class);
             intent.putExtra("POSITION", 0); // Game position, not drawer menu position
-            Bundle extras = intent.getExtras();
-            saveGameState(extras); // Pass game info bundle at start. Then need a way need to pass it to the fragment
-            gm.setGame(0, extras, getApplicationContext()); // Sets game 0
+//            Bundle extras = intent.getExtras();
+//            saveGameState(extras); // Pass game info bundle at start. Then need a way need to pass it to the fragment
+            Bundle bundle = new Bundle();
+            saveGameState(bundle);
+            gm.setGame(0, bundle, getApplicationContext()); // Sets game 0
             startActivity(intent);
         }
 
