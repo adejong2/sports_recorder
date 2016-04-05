@@ -433,7 +433,7 @@ public class MainActivity extends Activity implements View.OnClickListener, List
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ListView lv = (ListView) parent;
 
-        Toast.makeText(this, items[position], Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, items[position], Toast.LENGTH_SHORT).show();
 
         if (items[position].equals("Summary")) {
 
