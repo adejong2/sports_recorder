@@ -10,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,8 +83,11 @@ public class FieldDots extends View implements View.OnTouchListener {
             case MotionEvent.ACTION_DOWN:
 
                 // If the event type is uninitialized, skip it
-                if (MainActivity.getEventType() == R.string.event_type_null)
+                if (MainActivity.getEventType() == R.string.event_type_null) {
+                    Toast.makeText(getContext(), "Select event type below", Toast.LENGTH_SHORT).show();
+
                     break;
+                }
 
                 Dot d = new Dot();
                 if (isPortrait()) {

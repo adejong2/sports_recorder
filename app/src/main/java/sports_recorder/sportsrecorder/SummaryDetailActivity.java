@@ -70,4 +70,7 @@ public class SummaryDetailActivity extends Activity implements ListView.OnItemCl
 
         mDrawerLayout.closeDrawer(Gravity.LEFT);
     }
+
+
+
 }
