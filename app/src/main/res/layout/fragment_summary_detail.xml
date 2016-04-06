@@ -7,18 +7,18 @@
     tools:context=".SummaryDetailActivity">
 
     <TextView
-    android:id="@+id/dateText"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="20sp"
-    android:paddingBottom="15dp"
-    android:text="@string/game_date"/>
+        android:id="@+id/dateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="@string/game_date"/>
 
     <TextView
         android:id="@+id/editDateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
         android:layout_toRightOf="@+id/dateText"
         android:layout_alignBaseline="@+id/dateText"
         android:text="yyyy-MM-DD HH:mm"/>
@@ -37,9 +37,116 @@
         android:id="@+id/editScoreText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_toRightOf="@+id/dateText"
+        android:layout_toRightOf="@+id/scoreText"
         android:layout_alignBaseline="@+id/scoreText"
         android:text="A to B"/>
+
+    <TextView
+        android:id="@+id/halfScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingBottom="15dp"
+        android:layout_below="@+id/scoreText"
+        android:layout_alignRight="@+id/dateText"
+        android:text="@string/game_half_score"/>
+
+    <TextView
+        android:id="@+id/editHalfScoreText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/halfScoreText"
+        android:layout_alignBaseline="@+id/halfScoreText"
+        android:text="A to B"/>
+
+    <TextView
+        android:id="@+id/timeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingBottom="15dp"
+        android:layout_below="@+id/halfScoreText"
+        android:layout_alignRight="@+id/dateText"
+        android:text="@string/game_time"/>
+
+    <TextView
+        android:id="@+id/editTimeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/timeText"
+        android:layout_alignBaseline="@+id/timeText"
+        android:text="00:00"/>
+
+    <TextView
+        android:id="@+id/goalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingBottom="15dp"
+        android:layout_below="@+id/timeText"
+        android:layout_alignRight="@+id/dateText"
+        android:text="@string/game_goals"/>
+
+    <TextView
+        android:id="@+id/editGoalText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/goalText"
+        android:layout_alignBaseline="@+id/goalText"
+        android:text="0"/>
+
+    <TextView
+        android:id="@+id/SOGText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingBottom="15dp"
+        android:layout_below="@+id/goalText"
+        android:layout_alignRight="@+id/dateText"
+        android:text="@string/game_sog"/>
+
+    <TextView
+        android:id="@+id/editSOGText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/SOGText"
+        android:layout_alignBaseline="@+id/SOGText"
+        android:text="0"/>
+
+    <TextView
+        android:id="@+id/shotsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingBottom="15dp"
+        android:layout_below="@+id/SOGText"
+        android:layout_alignRight="@+id/dateText"
+        android:text="@string/game_shots"/>
+
+    <TextView
+        android:id="@+id/editShotsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/shotsText"
+        android:layout_alignBaseline="@+id/shotsText"
+        android:text="0"/>
+
+    <TextView
+        android:id="@+id/penaltiesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingBottom="15dp"
+        android:layout_below="@+id/shotsText"
+        android:layout_alignRight="@+id/dateText"
+        android:text="@string/game_penalties"/>
+
+    <TextView
+        android:id="@+id/editPenaltiesText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/penaltiesText"
+        android:layout_alignBaseline="@+id/penaltiesText"
+        android:text="0"/>
 
 </RelativeLayout>
