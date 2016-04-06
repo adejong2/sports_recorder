@@ -76,7 +76,8 @@
                         android:id="@+id/penaltyButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Card"
+                        android:text=""
+                        android:drawableLeft="@drawable/card"
                         android:backgroundTint="@color/red" />
 
                 </LinearLayout>
