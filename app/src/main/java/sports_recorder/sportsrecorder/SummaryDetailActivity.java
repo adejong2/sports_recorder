@@ -40,6 +40,8 @@ public class SummaryDetailActivity extends Activity implements ListView.OnItemCl
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(toolbar);
 
+        getActionBar().setElevation(10);
+
         toolbar.setNavigationIcon(R.drawable.ic_menu_gray757575_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
