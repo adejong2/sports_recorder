@@ -52,13 +52,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/soccer_goal_net"
-                        android:text="" />
+                        android:text=""
+                        android:backgroundTint="@color/cyan"/>
 
                     <Button
                         android:id="@+id/SOGButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SOG" />
+                        android:text="SOG"
+                        android:backgroundTint="@color/blue"/>
 
 
                     <Button
@@ -66,13 +68,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/football"
-                        android:text="" />
+                        android:text=""
+                        android:backgroundTint="@color/ltGray"/>
 
                     <Button
                         android:id="@+id/penaltyButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Card" />
+                        android:text="Card"
+                        android:backgroundTint="@color/red" />
 
                 </LinearLayout>
             </LinearLayout>
