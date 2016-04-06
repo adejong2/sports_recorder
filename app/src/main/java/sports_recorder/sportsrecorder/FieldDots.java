@@ -102,6 +102,7 @@ public class FieldDots extends View implements View.OnTouchListener {
                 System.out.println("d.half: " + d.half + ", main.half: " + main.getHalf());
 //                System.out.println("timestamp: " + d.timestamp);
                 d.type = MainActivity.getEventType();
+                main.recordEvent(d.type);
                 MainActivity.Dots.add(d);
                 MainActivity.resetEventType();
                 drawDot(d);

@@ -452,6 +452,28 @@ public class MainActivity extends Activity implements View.OnClickListener, List
 
         mDrawerLayout.closeDrawer(Gravity.LEFT);
     }
+
+    public void recordEvent(int eventType) {
+        switch (eventType) {
+            case R.string.event_type_goal:
+                this.goals++;
+                this.shotsOnGoal++;
+                this.shots++;
+                break;
+            case R.string.event_type_shot_on_goal:
+                this.shotsOnGoal++;
+                this.shots++;
+                break;
+            case R.string.event_type_shot:
+                this.shots++;
+                break;
+            case R.string.event_type_penalty:
+                this.penalties++;
+                break;
+            default:
+                System.out.println("Unrecognized event type in MainActivity.recordEvent()");
+        }
+    }
 }
 
 
