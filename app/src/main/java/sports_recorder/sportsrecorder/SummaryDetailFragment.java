@@ -40,7 +40,9 @@ public class SummaryDetailFragment extends Fragment {
         tv.setText(s);
 
         tv = (TextView) activity.findViewById(R.id.editTimeText);
-        s = "" + g.timeOnClock;
+        int minutes = g.timeOnClock / 60;
+        int seconds = g.timeOnClock % 60;
+        s = minutes + ":" + seconds;
         tv.setText(s);
 
         tv = (TextView) activity.findViewById(R.id.editGoalText);
@@ -84,6 +86,27 @@ public class SummaryDetailFragment extends Fragment {
 
         stringBuilder.append(getString(R.string.game_score));
         stringBuilder.append((game.scoreA + " to " + game.scoreB + '\n'));
+
+        stringBuilder.append(getString(R.string.game_half_score));
+        stringBuilder.append(game.halfScoreA + " to " + game.halfScoreB + '\n');
+
+        stringBuilder.append(getString(R.string.game_time));
+        stringBuilder.append(game.timeOnClock/60 + ":" + game.timeOnClock % 60 + '\n');
+
+        stringBuilder.append(getString(R.string.game_goals));
+        stringBuilder.append(game.goals + "\n");
+
+        stringBuilder.append(getString(R.string.game_sog));
+        stringBuilder.append(game.shotsOnGoal + "\n");
+
+        stringBuilder.append(getString(R.string.game_shots));
+        stringBuilder.append(game.shots + "\n");
+
+        stringBuilder.append(getString(R.string.game_penalties));
+        stringBuilder.append(game.penalties + "\n");
+
+
+
 
         String body = stringBuilder.toString();
         intent.putExtra(Intent.EXTRA_TEXT, body);
