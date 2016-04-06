@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -13,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 // Code from class contact example:
@@ -72,5 +75,35 @@ public class SummaryDetailActivity extends Activity implements ListView.OnItemCl
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.summary_toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_email:
+                // User chose the "Email" item, show the app settings UI...
+//                System.out.println("Email button pressed");
+                Toast.makeText(this, R.string.action_email, Toast.LENGTH_SHORT).show();
+                FragmentManager fragmentManager = getFragmentManager();
+                SummaryDetailFragment fragment = (SummaryDetailFragment) fragmentManager.findFragmentById(R.id.fragment_summary_detail);
+                if (fragment != null) {
+                    int position = 0;
+                    position = getIntent().getIntExtra("POSITION",0);
+//                    fragment.loadPosition(position);
+                    fragment.sendEmail();
+                }
+
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SummaryDetailFragment extends Fragment {
     private GameManager gm = GameManager.getInstance();
@@ -31,4 +32,9 @@ public class SummaryDetailFragment extends Fragment {
     public void onClick(View view) {
         Intent email = new Intent(Intent.ACTION_SEND);
     }
+
+    public void sendEmail() {
+//        Toast.makeText(getActivity().getApplicationContext(), R.string.action_email, Toast.LENGTH_SHORT).show();
+    }
+
 }
