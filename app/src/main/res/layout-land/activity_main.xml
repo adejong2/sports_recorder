@@ -60,7 +60,8 @@
                         android:id="@+id/SOGButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SOG"
+                        android:drawableLeft="@drawable/ic_goalkeeper_catch"
+                        android:text=""
                         android:backgroundTint="@color/blue"/>
 
 
@@ -76,7 +77,8 @@
                         android:id="@+id/penaltyButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Card"
+                        android:drawableLeft="@drawable/card"
+                        android:text=""
                         android:backgroundTint="@color/red" />
 
                 </LinearLayout>
@@ -96,45 +98,55 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#AA000000"
-                    android:padding="9dip"
+                    android:padding="5dip"
                     android:text="A"
-                    android:textColor="@color/colorMediumRed" />
+                    android:textColor="@color/colorMediumRed"
+                    android:minHeight="30dp"
+                    android:layout_gravity="bottom"/>
 
                 <Button
                     android:id="@+id/timerButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#AA000000"
-                    android:padding="9dip"
+                    android:padding="5dip"
                     android:text="Clock"
-                    android:textColor="#ffffffff" />
+                    android:textColor="#ffffffff"
+                    android:minHeight="30dp"
+                    android:layout_gravity="bottom"/>
 
                 <Button
                     android:id="@+id/timerText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#AA000000"
-                    android:padding="9dip"
+                    android:padding="5dip"
                     android:text="Time"
-                    android:textColor="#ffffffff" />
+                    android:textColor="#ffffffff"
+                    android:minHeight="30dp"
+                    android:layout_gravity="bottom"/>
 
                 <Button
                     android:id="@+id/halfButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#AA000000"
-                    android:padding="9dip"
+                    android:padding="5dip"
                     android:text="1st"
-                    android:textColor="#ffffffff" />
+                    android:textColor="#ffffffff"
+                    android:minHeight="30dp"
+                    android:layout_gravity="bottom"/>
 
                 <Button
                     android:id="@+id/score2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#AA000000"
-                    android:padding="9dip"
+                    android:padding="5dip"
                     android:text="B"
-                    android:textColor="@color/colorMediumBlue" />
+                    android:textColor="@color/colorMediumBlue"
+                    android:minHeight="30dp"
+                    android:layout_gravity="bottom"/>
             </LinearLayout>
 
         </FrameLayout>

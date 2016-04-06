@@ -210,24 +210,24 @@ public class MainActivity extends Activity implements View.OnClickListener, List
         if (clockIsRunning) {
             startTime = System.currentTimeMillis();
             timerHandler.postDelayed(timerRunnable, 0);
-            timerButton.setText("stop");
+            timerButton.setText("Stop");
             dirtyClock = true;
-        } else {timerButton.setText("start");}
+        } else {timerButton.setText("Start");}
 
         timerButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Button timerButton = (Button) v;
-                if (timerButton.getText().equals("stop")) { // Stop the clock
+                if (timerButton.getText().equals("Stop")) { // Stop the clock
                     timerHandler.removeCallbacks(timerRunnable);
-                    timerButton.setText("start");
+                    timerButton.setText("Start");
                     updateTimeOnClock();
                     clockIsRunning = false;
                 } else {    // Start the clock:
                     startTime = System.currentTimeMillis();
                     timerHandler.postDelayed(timerRunnable, 0);
-                    timerButton.setText("stop");
+                    timerButton.setText("Stop");
                     dirtyClock = true;
                     clockIsRunning = true;
                 }
