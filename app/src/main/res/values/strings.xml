@@ -20,5 +20,7 @@
     <string name="saved_half_scoreA">Saved Half Score A</string>
     <string name="saved_half_scoreB">Saved Half Score B</string>
     <string name="saved_game_date">Saved Game Date</string>
-    <string name="action_email">Email</string>
+    <string name="action_email">Sending email</string>
+    <string name="game_date">"Game start date: "</string>
+    <string name="game_score">"Game Score: "</string>
 </resources>

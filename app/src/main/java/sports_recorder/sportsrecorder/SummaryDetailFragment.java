@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 public class SummaryDetailFragment extends Fragment {
     private GameManager gm = GameManager.getInstance();
+    private Game game = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -24,9 +25,13 @@ public class SummaryDetailFragment extends Fragment {
     // Tell the fragment which game's stats to display
     public void loadPosition(int position) {
         Game g = gm.get(position);
+        game = g;
         Activity activity = getActivity();
         TextView tv = (TextView) activity.findViewById(R.id.editDateText);
         tv.setText(g.gameDateStr);
+
+        tv = (TextView) activity.findViewById(R.id.editScoreText);
+        tv.setText(g.scoreA + " to " + g.scoreB);
     }
 
     public void onClick(View view) {
@@ -34,7 +39,30 @@ public class SummaryDetailFragment extends Fragment {
     }
 
     public void sendEmail() {
-//        Toast.makeText(getActivity().getApplicationContext(), R.string.action_email, Toast.LENGTH_SHORT).show();
+        if (game == null) {
+            System.out.println("Fragment's game is null!");
+            return;
+        }
+
+        Intent intent = new Intent();
+        intent.setType("text/plain");
+        String subject = "Sports Recorder: Game on " + game.gameDateStr.substring(0, game.gameDateStr.length() - 5);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(getString(R.string.game_date));
+//        stringBuilder.append(' ');
+        stringBuilder.append(game.gameDateStr);
+        stringBuilder.append('\n');
+
+        stringBuilder.append(getString(R.string.game_score));
+        stringBuilder.append((game.scoreA + " to " + game.scoreB + '\n'));
+
+        String body = stringBuilder.toString();
+        intent.putExtra(Intent.EXTRA_TEXT, body);
+
+        startActivity(Intent.createChooser(intent, "Send Email"));
     }
 
 }

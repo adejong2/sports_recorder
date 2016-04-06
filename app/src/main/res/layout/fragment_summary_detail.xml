@@ -7,12 +7,12 @@
     tools:context=".SummaryDetailActivity">
 
     <TextView
-        android:id="@+id/dateText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:paddingBottom="15dp"
-        android:text="Game Date: "/>
+    android:id="@+id/dateText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="20sp"
+    android:paddingBottom="15dp"
+    android:text="@string/game_date"/>
 
     <TextView
         android:id="@+id/editDateText"
@@ -22,5 +22,24 @@
         android:layout_toRightOf="@+id/dateText"
         android:layout_alignBaseline="@+id/dateText"
         android:text="yyyy-MM-DD HH:mm"/>
+
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:paddingBottom="15dp"
+        android:layout_below="@+id/dateText"
+        android:layout_alignRight="@+id/dateText"
+        android:text="@string/game_score"/>
+
+    <TextView
+        android:id="@+id/editScoreText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_toRightOf="@+id/dateText"
+        android:layout_alignBaseline="@+id/scoreText"
+        android:text="A to B"/>
 
 </RelativeLayout>
