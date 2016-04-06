@@ -23,4 +23,10 @@
     <string name="action_email">Sending email</string>
     <string name="game_date">"Game start date: "</string>
     <string name="game_score">"Game Score: "</string>
+    <string name="game_half_score">"HT scores: "</string>
+    <string name="game_time">"Time on field: "</string>
+    <string name="game_goals">"Goals: "</string>
+    <string name="game_sog">"Shots on goal: "</string>
+    <string name="game_shots">"Shots: "</string>
+    <string name="game_penalties">"Penalties: "</string>
 </resources>
