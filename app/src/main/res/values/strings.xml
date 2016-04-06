@@ -28,5 +28,5 @@
     <string name="game_goals">"Goals: "</string>
     <string name="game_sog">"Shots on goal: "</string>
     <string name="game_shots">"Shots: "</string>
-    <string name="game_penalties">"Penalties: "</string>
+    <string name="game_penalties">"Fouls: "</string>
 </resources>
