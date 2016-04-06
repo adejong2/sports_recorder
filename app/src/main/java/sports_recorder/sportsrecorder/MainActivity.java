@@ -93,7 +93,7 @@ public class MainActivity extends Activity implements View.OnClickListener, List
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(toolbar);
 
-        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_gray757575_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 mDrawerLayout.openDrawer(mDrawerListView);
@@ -107,6 +107,7 @@ public class MainActivity extends Activity implements View.OnClickListener, List
 
         ListAdapter listAdapter = new ArrayAdapter<>(this, R.layout.nav_drawer_list_item, items);
         mDrawerListView.setAdapter(listAdapter);
+
         // Set button listeners:
         goalButton = (Button) findViewById(R.id.goalButton);
         goalButton.setOnClickListener(this);
