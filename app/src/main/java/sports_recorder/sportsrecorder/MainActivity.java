@@ -442,7 +442,10 @@ public class MainActivity extends Activity implements View.OnClickListener, List
 
     public void halfTimeAlert() {
 
-
+        if (half == 2) {
+            Toast.makeText(this, "2nd Half", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);

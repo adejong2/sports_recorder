@@ -176,7 +176,7 @@ public class FieldDots extends View implements View.OnTouchListener {
         switch (event) {
             case R.string.event_type_goal:
 //                setColor(Color.CYAN);
-                setColor(getResources().getColor(R.color.black));
+                setColor(getResources().getColor(R.color.gold));
                 break;
             case R.string.event_type_shot_on_goal:
 //                setColor(Color.BLUE);
