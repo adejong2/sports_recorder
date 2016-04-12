@@ -54,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/soccer_goal_net"
                         android:text=""
-                        android:backgroundTint="@color/cyan"/>
+                        android:backgroundTint="@color/gold"/>
 
                     <Button
                         android:id="@+id/SOGButton"
@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/ic_goalkeeper_catch"
                         android:text=""
-                        android:backgroundTint="@color/blue"/>
+                        android:backgroundTint="@color/cyan"/>
 
 
                     <Button
@@ -100,7 +100,7 @@
                     android:background="#AA000000"
                     android:padding="5dip"
                     android:text="A"
-                    android:textColor="@color/colorMediumRed"
+                    android:textColor="@color/colorMediumGreen"
                     android:minHeight="30dp"
                     android:layout_gravity="bottom"/>
 
@@ -144,7 +144,7 @@
                     android:background="#AA000000"
                     android:padding="5dip"
                     android:text="B"
-                    android:textColor="@color/colorMediumBlue"
+                    android:textColor="@color/royalBlue"
                     android:minHeight="30dp"
                     android:layout_gravity="bottom"/>
             </LinearLayout>

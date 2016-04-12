@@ -53,7 +53,9 @@
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/soccer_goal_net"
                         android:text=""
-                        android:backgroundTint="@color/cyan"/>
+                        android:backgroundTint="@color/gold"
+                        android:paddingTop="@dimen/activity_vertical_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"/>
 
                     <Button
                         android:id="@+id/SOGButton"
@@ -61,7 +63,9 @@
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/ic_goalkeeper_catch"
                         android:text=""
-                        android:backgroundTint="@color/blue"/>
+                        android:backgroundTint="@color/cyan"
+                        android:paddingTop="@dimen/activity_vertical_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"/>
 
 
                     <Button
@@ -70,7 +74,9 @@
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/football"
                         android:text=""
-                        android:backgroundTint="@color/ltGray"/>
+                        android:backgroundTint="@color/ltGray"
+                        android:paddingTop="@dimen/activity_vertical_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"/>
 
                     <Button
                         android:id="@+id/penaltyButton"
@@ -78,7 +84,9 @@
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/card"
                         android:text=""
-                        android:backgroundTint="@color/red"/>
+                        android:backgroundTint="@color/red"
+                        android:paddingTop="@dimen/activity_vertical_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"/>
 
 
                 </LinearLayout>
@@ -97,8 +105,8 @@
                     android:layout_height="wrap_content"
                     android:background="#AA000000"
                     android:padding="5dip"
-                    android:text="0"
-                    android:textColor="@color/colorMediumRed"
+                    android:text="A"
+                    android:textColor="@color/colorMediumGreen"
                     android:minWidth="50dp"
                     android:layout_gravity="right" />
 
@@ -144,8 +152,8 @@
                     android:layout_height="wrap_content"
                     android:background="#AA000000"
                     android:padding="5dip"
-                    android:text="0"
-                    android:textColor="@color/colorMediumBlue"
+                    android:text="B"
+                    android:textColor="@color/royalBlue"
                     android:minWidth="50dp"
                     android:layout_gravity="right" />
             </LinearLayout>

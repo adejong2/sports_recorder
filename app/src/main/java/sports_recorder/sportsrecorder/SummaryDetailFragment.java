@@ -106,8 +106,6 @@ public class SummaryDetailFragment extends Fragment {
         stringBuilder.append(game.penalties + "\n");
 
 
-
-
         String body = stringBuilder.toString();
         intent.putExtra(Intent.EXTRA_TEXT, body);
 

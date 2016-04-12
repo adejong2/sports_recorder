@@ -18,6 +18,8 @@ import java.util.WeakHashMap;
 
 public class FieldDots extends View implements View.OnTouchListener {
     public static int SMALL_RADIUS = 10;
+    public static int MEDIUM_RADIUS = 20;
+
 
     private Paint mPaint;
     private Bitmap mBitmap;
@@ -49,7 +51,7 @@ public class FieldDots extends View implements View.OnTouchListener {
     private void initDotsView() {
         mPaint = new Paint();
         mPaint.setStrokeCap(Paint.Cap.ROUND);
-        dotRadius = SMALL_RADIUS;
+        dotRadius = MEDIUM_RADIUS;
         pointerMap = new WeakHashMap();
         setOnTouchListener(this);
     }
@@ -166,16 +168,20 @@ public class FieldDots extends View implements View.OnTouchListener {
     public void setColorByEvent(int event) {
         switch (event) {
             case R.string.event_type_goal:
-                setColor(Color.CYAN);
+//                setColor(Color.CYAN);
+                setColor(getResources().getColor(R.color.gold));
                 break;
             case R.string.event_type_shot_on_goal:
-                setColor(Color.BLUE);
+//                setColor(Color.BLUE);
+//                setColor(getResources().getColor(R.color.magentaish));
+                setColor(Color.CYAN);
                 break;
             case R.string.event_type_shot:
                 setColor(Color.LTGRAY);
                 break;
             case R.string.event_type_penalty:
-                setColor(Color.RED);
+//                setColor(Color.RED);
+                setColor(getResources().getColor(R.color.pink));
                 break;
             case R.string.event_type_null:
                 setColor(Color.BLACK);
