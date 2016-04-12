@@ -29,4 +29,8 @@
     <string name="game_sog">"Shots on goal: "</string>
     <string name="game_shots">"Shots: "</string>
     <string name="game_penalties">"Fouls: "</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="half_time_alert_title">Half Time</string>
+    <string name="half_time_alert_dialog">Continue to second half?</string>
 </resources>

@@ -1,7 +1,9 @@
 package sports_recorder.sportsrecorder;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -312,7 +314,8 @@ public class MainActivity extends Activity implements View.OnClickListener, List
                 break;
             case R.id.halfButton:
 //                Toast.makeText(this, "Half Time", Toast.LENGTH_SHORT).show();
-                setHalfTime();
+//                setHalfTime();
+                halfTimeAlert();
                 break;
             case R.id.score1:
                 if ((half % 2) == 1) {
@@ -412,24 +415,64 @@ public class MainActivity extends Activity implements View.OnClickListener, List
 
         Toast.makeText(this, "Half Time", Toast.LENGTH_SHORT).show();
 
-        half++;
 
-        // Teams switch home fields
-        int color = scoreButton1.getCurrentTextColor();
-        scoreButton1.setTextColor(scoreButton2.getCurrentTextColor());
-        scoreButton2.setTextColor(color);
 
-        scoreButton1.setText("" + scoreB);
-        scoreButton2.setText("" + scoreA);
+        half = (half % 2) + 1;
 
-        halfButton.setText(half + "nd");
+        if (half==1)
+            halfButton.setText("1st");
+        else if (half==2) {
+            halfButton.setText("2nd");
+            halfScoreA = scoreA;
+            halfScoreB = scoreB;
 
-        halfScoreA = scoreA;
-        halfScoreB = scoreB;
+            // Teams switch home fields
+            int color = scoreButton1.getCurrentTextColor();
+            scoreButton1.setTextColor(scoreButton2.getCurrentTextColor());
+            scoreButton2.setTextColor(color);
+
+            scoreButton1.setText("" + scoreB);
+            scoreButton2.setText("" + scoreA);
+        }
 
         FieldDots fieldDots = (FieldDots) findViewById(R.id.dots_view);
         fieldDots.clear();
         fieldDots.invalidate();
+    }
+
+    public void halfTimeAlert() {
+
+
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set title
+        alertDialogBuilder.setTitle(getString(R.string.half_time_alert_title));
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(getString(R.string.half_time_alert_dialog))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.confirm),new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, change halves
+                        setHalfTime();
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancel),new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
     }
 
     @Override
