@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -26,6 +27,8 @@ public class FieldDots extends View implements View.OnTouchListener {
     private Canvas mCanvas;
     private int dotRadius;
     private WeakHashMap pointerMap;
+
+    private GestureDetector mDetector = new GestureDetector(getContext(), new MyGestureListener());
 
 
     public FieldDots(Context context) {
@@ -72,55 +75,61 @@ public class FieldDots extends View implements View.OnTouchListener {
         drawAllDots();
     }
 
-    public boolean onTouch(View v, MotionEvent event) {
-        // Log.d("DEBUG", "Receiving touch event");
-        int action = event.getActionMasked();
-        int index = event.getActionIndex();
-        int id = event.getPointerId(index);
-        float x = event.getX(index);
-        float y = event.getY(index);
-
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-
-                // If the event type is uninitialized, skip it
-                if (MainActivity.getEventType() == R.string.event_type_null) {
-                    Toast.makeText(getContext(), "Select event type below", Toast.LENGTH_SHORT).show();
-
-                    break;
-                }
-
-                Dot d = new Dot();
-                if (isPortrait()) {
-                    d.x = x / mBitmap.getWidth();// *getResources().getDisplayMetrics().density;
-                    d.y = y / mBitmap.getHeight(); //*getResources().getDisplayMetrics().density;
-                } else {
-                    d.x = 1 - y / mBitmap.getHeight();
-                    d.y = x / mBitmap.getWidth();
-                }
-                MainActivity main = (MainActivity) getContext();
-                d.timestamp = main.getTimeOnClock();
-                d.half = main.getHalf();
-                System.out.println("d.half: " + d.half + ", main.half: " + main.getHalf());
-//                System.out.println("timestamp: " + d.timestamp);
-                d.type = MainActivity.getEventType();
-                main.recordEvent(d.type);
-                MainActivity.Dots.add(d);
-                MainActivity.resetEventType();
-                drawDot(d);
-//                mCanvas.drawCircle(x, y, dotRadius, mPaint);
-//                System.out.println("Touch coordinates : " +
-//                        String.valueOf(event.getX()) + "x" + String.valueOf(event.getY()));
-                System.out.println("x: " + x +", y: " + y);
-                System.out.println("d.x: " + d.x +", d.y: " + d.y);
-                invalidate();
-                break;
-            default:
-                break;
-
-        }
+    @Override
+    public boolean onTouch(final View v, final MotionEvent event) {
+        mDetector.onTouchEvent(event);
         return true;
     }
+
+//    public boolean onTouch(View v, MotionEvent event) {
+//        // Log.d("DEBUG", "Receiving touch event");
+//        int action = event.getActionMasked();
+//        int index = event.getActionIndex();
+//        int id = event.getPointerId(index);
+//        float x = event.getX(index);
+//        float y = event.getY(index);
+//
+//        switch (action) {
+//            case MotionEvent.ACTION_DOWN:
+//
+//                // If the event type is uninitialized, skip it
+//                if (MainActivity.getEventType() == R.string.event_type_null) {
+//                    Toast.makeText(getContext(), "Select event type below", Toast.LENGTH_SHORT).show();
+//
+//                    break;
+//                }
+//
+//                Dot d = new Dot();
+//                if (isPortrait()) {
+//                    d.x = x / mBitmap.getWidth();// *getResources().getDisplayMetrics().density;
+//                    d.y = y / mBitmap.getHeight(); //*getResources().getDisplayMetrics().density;
+//                } else {
+//                    d.x = 1 - y / mBitmap.getHeight();
+//                    d.y = x / mBitmap.getWidth();
+//                }
+//                MainActivity main = (MainActivity) getContext();
+//                d.timestamp = main.getTimeOnClock();
+//                d.half = main.getHalf();
+//                System.out.println("d.half: " + d.half + ", main.half: " + main.getHalf());
+////                System.out.println("timestamp: " + d.timestamp);
+//                d.type = MainActivity.getEventType();
+//                main.recordEvent(d.type);
+//                MainActivity.Dots.add(d);
+//                MainActivity.resetEventType();
+//                drawDot(d);
+////                mCanvas.drawCircle(x, y, dotRadius, mPaint);
+////                System.out.println("Touch coordinates : " +
+////                        String.valueOf(event.getX()) + "x" + String.valueOf(event.getY()));
+//                System.out.println("x: " + x +", y: " + y);
+//                System.out.println("d.x: " + d.x +", d.y: " + d.y);
+//                invalidate();
+//                break;
+//            default:
+//                break;
+//
+//        }
+//        return true;
+//    }
 
 
     public void drawDot(Dot d) {
@@ -192,6 +201,94 @@ public class FieldDots extends View implements View.OnTouchListener {
 
     public void clear() {
         mCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+    }
+
+    //Gestures:
+    class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+        private static final String DEBUG_TAG = "Gestures ";
+
+        @Override
+        public boolean onDown(MotionEvent event) {
+            System.out.println(DEBUG_TAG + "onDown: " + event.toString());
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent event1, MotionEvent event2,
+                               float velocityX, float velocityY) {
+            System.out.println(DEBUG_TAG + "onFling: " + event1.toString() + event2.toString());
+            return true;
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent event) {
+            System.out.println(DEBUG_TAG + "onDoubleTap: " + event.toString());
+            return true;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent event) {
+            System.out.println(DEBUG_TAG + "onLongPress: " + event.toString());
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent event) {
+            System.out.println(DEBUG_TAG + "onSingleTapConfirmed: " + event.toString());
+            mySingleTap(event);
+            return true;
+        }
+
+
+    }
+
+        public boolean mySingleTap(MotionEvent event) {
+        // Log.d("DEBUG", "Receiving touch event");
+        int action = event.getActionMasked();
+        int index = event.getActionIndex();
+        int id = event.getPointerId(index);
+        float x = event.getX(index);
+        float y = event.getY(index);
+
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+
+                // If the event type is uninitialized, skip it
+                if (MainActivity.getEventType() == R.string.event_type_null) {
+                    Toast.makeText(getContext(), "Select event type below", Toast.LENGTH_SHORT).show();
+
+                    break;
+                }
+
+                Dot d = new Dot();
+                if (isPortrait()) {
+                    d.x = x / mBitmap.getWidth();// *getResources().getDisplayMetrics().density;
+                    d.y = y / mBitmap.getHeight(); //*getResources().getDisplayMetrics().density;
+                } else {
+                    d.x = 1 - y / mBitmap.getHeight();
+                    d.y = x / mBitmap.getWidth();
+                }
+                MainActivity main = (MainActivity) getContext();
+                d.timestamp = main.getTimeOnClock();
+                d.half = main.getHalf();
+                System.out.println("d.half: " + d.half + ", main.half: " + main.getHalf());
+//                System.out.println("timestamp: " + d.timestamp);
+                d.type = MainActivity.getEventType();
+                main.recordEvent(d.type);
+                MainActivity.Dots.add(d);
+                MainActivity.resetEventType();
+                drawDot(d);
+//                mCanvas.drawCircle(x, y, dotRadius, mPaint);
+//                System.out.println("Touch coordinates : " +
+//                        String.valueOf(event.getX()) + "x" + String.valueOf(event.getY()));
+                System.out.println("x: " + x +", y: " + y);
+                System.out.println("d.x: " + d.x +", d.y: " + d.y);
+                invalidate();
+                break;
+            default:
+                break;
+
+        }
+        return true;
     }
 
 }

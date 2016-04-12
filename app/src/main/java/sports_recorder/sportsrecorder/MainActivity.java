@@ -13,9 +13,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -55,6 +57,8 @@ public class MainActivity extends Activity implements View.OnClickListener, List
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
 
+    private GestureDetector mDetector;
+
     private String items[] = new String[] { "Data Entry","Summary"};
 
     // Timer
@@ -82,6 +86,10 @@ public class MainActivity extends Activity implements View.OnClickListener, List
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Gestures:
+        mDetector = new GestureDetector(this, new MyGestureListener());
+
 
         //Disable original title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -112,7 +120,14 @@ public class MainActivity extends Activity implements View.OnClickListener, List
 
         // Set button listeners:
         goalButton = (Button) findViewById(R.id.goalButton);
-        goalButton.setOnClickListener(this);
+//        goalButton.setOnClickListener(this);
+        goalButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                System.out.println("goalButton onTouch event");
+                return mDetector.onTouchEvent(event);
+            }
+        });
 
         sogButton = (Button) findViewById(R.id.SOGButton);
         sogButton.setOnClickListener(this);
@@ -474,6 +489,60 @@ public class MainActivity extends Activity implements View.OnClickListener, List
                 System.out.println("Unrecognized event type in MainActivity.recordEvent()");
         }
     }
+
+    // Gestures:
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        this.mDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+    public class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+        private static final String DEBUG_TAG = "Gestures ";
+
+//        Button goalButton = (Button) findViewById(R.id.goalButton);
+//        goalButton.setOnTouchListener(this);
+//        goalButton.setText("Hello");
+
+
+        @Override
+        public boolean onDown(MotionEvent event) {
+            System.out.println(DEBUG_TAG + "MainActivity " + "onDown: " + event.toString());
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent event1, MotionEvent event2,
+                               float velocityX, float velocityY) {
+            System.out.println(DEBUG_TAG + "MainActivity " + "onFling: " + event1.toString() + event2.toString());
+            return true;
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent event) {
+            System.out.println(DEBUG_TAG + "MainActivity " + "onDoubleTap: " + event.toString());
+            return true;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent event) {
+            System.out.println(DEBUG_TAG + "MainActivity " + "onLongPress: " + event.toString());
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent event) {
+            System.out.println(DEBUG_TAG + "MainActivity " + "onSingleTapConfirmed: " + event.toString());
+            return true;
+        }
+
+    }
+
+    public boolean onTouch(final View v, final MotionEvent event) {
+        mDetector.onTouchEvent(event);
+        return true;
+    }
+
+
 }
 
 
