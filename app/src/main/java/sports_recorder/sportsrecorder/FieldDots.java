@@ -21,7 +21,6 @@ public class FieldDots extends View implements View.OnTouchListener {
     public static int SMALL_RADIUS = 10;
     public static int MEDIUM_RADIUS = 20;
 
-
     private Paint mPaint;
     private Bitmap mBitmap;
     private Canvas mCanvas;
@@ -29,7 +28,6 @@ public class FieldDots extends View implements View.OnTouchListener {
     private WeakHashMap pointerMap;
 
     private GestureDetector mDetector = new GestureDetector(getContext(), new MyGestureListener());
-
 
     public FieldDots(Context context) {
         super(context);
@@ -178,7 +176,7 @@ public class FieldDots extends View implements View.OnTouchListener {
         switch (event) {
             case R.string.event_type_goal:
 //                setColor(Color.CYAN);
-                setColor(getResources().getColor(R.color.gold));
+                setColor(getResources().getColor(R.color.black));
                 break;
             case R.string.event_type_shot_on_goal:
 //                setColor(Color.BLUE);
@@ -229,6 +227,58 @@ public class FieldDots extends View implements View.OnTouchListener {
         @Override
         public void onLongPress(MotionEvent event) {
             System.out.println(DEBUG_TAG + "onLongPress: " + event.toString());
+            //Toast.makeText(getContext(), "Long Pressed", Toast.LENGTH_SHORT).show();
+            float userX = event.getX();
+            float userY = event.getY();
+
+            if (MainActivity.Dots != null) {
+                System.out.println("longpress1");
+                float minDiff = 2500;
+                Dot minDot = null;
+                for (Dot d : MainActivity.Dots) {
+                    System.out.println("longpress2");
+/*                    if ((d.x - userX) * (d.x - userX) + (d.y - userY) * (d.y - userY) <= dotRadius * dotRadius) {
+                        System.out.println("longpress3");
+                        Toast.makeText(getContext(), "Inside Circle", Toast.LENGTH_SHORT).show();
+                        break;
+                    }  */
+
+                    float diff = ((d.x - userX) * (d.x - userX) + (d.y - userY) * (d.y - userY));
+                    if (diff <= minDiff || minDot == null) {
+                        minDot = d;
+                        minDiff = diff;
+                    }
+                }
+
+                if (minDot != null) {
+                    MainActivity main = (MainActivity) getContext();
+                    if (minDot.half != main.getHalf()) {
+                        System.out.println("longpress wrong half");
+                        return;
+                    }
+                    System.out.println("longpress minDot not null");
+                    //setColor(getResources().getColor(R.color.gold));
+                    //mCanvas.drawCircle(minDot.x, minDot.y, dotRadius, mPaint);
+                    float drawx;
+                    float drawy;
+                    if (isPortrait()) {
+                        drawx = minDot.x*mBitmap.getWidth(); ///getResources().getDisplayMetrics().density;
+                        drawy = minDot.y*mBitmap.getHeight(); ///getResources().getDisplayMetrics().density;
+                    } else {
+                        drawx = minDot.y *mBitmap.getWidth();
+                        drawy = (1 - minDot.x)*mBitmap.getHeight();
+                    }
+//        System.out.println();
+                    //setColorByEvent(minDot.type);
+                    setColor(getResources().getColor(R.color.gold));
+
+                    mCanvas.drawCircle(drawx, drawy, 30, mPaint);
+                    System.out.println("longpress x, y " + drawx + " , " + drawy);
+                    invalidate();
+                }
+            } else {
+                System.out.println("Dots is null!");
+            }
         }
 
         @Override
@@ -290,5 +340,7 @@ public class FieldDots extends View implements View.OnTouchListener {
         }
         return true;
     }
+
+
 
 }
