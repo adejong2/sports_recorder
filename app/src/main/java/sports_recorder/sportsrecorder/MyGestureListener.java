@@ -1,10 +1,16 @@
-//package sports_recorder.sportsrecorder;
+package sports_recorder.sportsrecorder;
 
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
     private static final String DEBUG_TAG = "Gestures ";
+
+//    @Override
+//    public boolean onTouch(MotionEvent event) {
+//        System.out.println(DEBUG_TAG + "onTouch: " + event.toString());
+//        return true;
+//    }
 
     @Override
     public boolean onDown(MotionEvent event) {

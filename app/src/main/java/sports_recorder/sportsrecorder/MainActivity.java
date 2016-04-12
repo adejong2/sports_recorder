@@ -87,7 +87,7 @@ public class MainActivity extends Activity implements View.OnClickListener, List
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Gestures:
+        // Gestures detector:
         mDetector = new GestureDetector(this, new MyGestureListener());
 
 
@@ -120,14 +120,8 @@ public class MainActivity extends Activity implements View.OnClickListener, List
 
         // Set button listeners:
         goalButton = (Button) findViewById(R.id.goalButton);
-//        goalButton.setOnClickListener(this);
-        goalButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                System.out.println("goalButton onTouch event");
-                return mDetector.onTouchEvent(event);
-            }
-        });
+        goalButton.setOnClickListener(this);
+//        goalButton.setOnTouchListener(new MyGestureListener());
 
         sogButton = (Button) findViewById(R.id.SOGButton);
         sogButton.setOnClickListener(this);
@@ -139,10 +133,12 @@ public class MainActivity extends Activity implements View.OnClickListener, List
         penaltyButton.setOnClickListener(this);
 
         scoreButton1 = (Button) findViewById(R.id.score1);
-        scoreButton1.setOnClickListener(this);
+//        scoreButton1.setOnClickListener(this);
+        scoreButton1.setOnTouchListener(new GestureScore1(this));
 
         scoreButton2 = (Button) findViewById(R.id.score2);
-        scoreButton2.setOnClickListener(this);
+//        scoreButton2.setOnClickListener(this);
+        scoreButton2.setOnTouchListener(new GestureScore2(this));
 
         halfButton = (Button) findViewById(R.id.halfButton);
         halfButton.setOnClickListener(this);
@@ -542,6 +538,29 @@ public class MainActivity extends Activity implements View.OnClickListener, List
         return true;
     }
 
+    public void changeScore(int score, int change) {
+        System.out.println("Gesture changing score");
+        switch (score) {
+            case 1:
+                if ((half % 2) == 1) {
+                    scoreA += change;
+                    scoreButton1.setText("" + scoreA);
+                } else {
+                    scoreB += change;
+                    scoreButton1.setText("" + scoreB);
+                }
+                break;
+            case 2:
+                if ((half % 2) == 1) {
+                    scoreB += change;
+                    scoreButton2.setText("" + scoreB);
+                } else {
+                    scoreA += change;
+                    scoreButton2.setText("" + scoreA);
+                }
+                break;
+            }
+        }
 
 }
 
