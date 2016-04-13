@@ -2,6 +2,7 @@ package sports_recorder.sportsrecorder;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -62,7 +63,11 @@ public class MainActivity extends Activity implements View.OnClickListener, List
 
     private GestureDetector mDetector;
 
-    private String items[] = new String[] { "Data Entry","Summary"};
+    private String items[] = new String[]{"Data Entry", "Summary"};
+
+    public static Dot selectedDot = null;
+
+    public static Menu mMenu;
 
     // Timer
     long startTime = 0;
@@ -93,6 +98,8 @@ public class MainActivity extends Activity implements View.OnClickListener, List
         // Gestures detector:
         mDetector = new GestureDetector(this, new MyGestureListener());
 
+        //MenuItem deletebutton = (MenuItem) findViewById(R.id.action_delete);
+        //deletebutton.setVisible(false);
 
         //Disable original title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -161,7 +168,6 @@ public class MainActivity extends Activity implements View.OnClickListener, List
         num_points = sharedPref.getInt(getString(R.string.saved_goals), 0);
 
 
-
         // Check whether we're recreating a previously destroyed instance
         if (savedInstanceState != null) {
             // Restore value of members from saved state
@@ -203,7 +209,7 @@ public class MainActivity extends Activity implements View.OnClickListener, List
 //        System.out.println("Date: " + gameDateStr);
 
         // Scores and Half:
-        if (half==1) {
+        if (half == 1) {
             scoreButton1.setText("" + scoreA);
             scoreButton2.setText("" + scoreB);
         } else {
@@ -229,7 +235,9 @@ public class MainActivity extends Activity implements View.OnClickListener, List
             timerHandler.postDelayed(timerRunnable, 0);
             timerButton.setText("Stop");
             dirtyClock = true;
-        } else {timerButton.setText("Start");}
+        } else {
+            timerButton.setText("Start");
+        }
 
         timerButton.setOnClickListener(new View.OnClickListener() {
 
@@ -250,16 +258,6 @@ public class MainActivity extends Activity implements View.OnClickListener, List
                 }
             }
         });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == android.R.id.home) {
-//            getActionBar().setTitle("buttonclicked");
-//            mDrawerLayout.openDrawer(mDrawerListView);
-//            return true;
-//        }
-        return super.onOptionsItemSelected(item);
     }
 
 
@@ -420,17 +418,17 @@ public class MainActivity extends Activity implements View.OnClickListener, List
     // Process the switch to the second half
     public void setHalfTime() {
         if (half > 1)
-            return;;
+            return;
+        ;
 
         Toast.makeText(this, "Half Time", Toast.LENGTH_SHORT).show();
 
 
-
         half = (half % 2) + 1;
 
-        if (half==1)
+        if (half == 1)
             halfButton.setText("1st");
-        else if (half==2) {
+        else if (half == 2) {
             halfButton.setText("2nd");
             halfScoreA = scoreA;
             halfScoreB = scoreB;
@@ -466,14 +464,14 @@ public class MainActivity extends Activity implements View.OnClickListener, List
         alertDialogBuilder
                 .setMessage(getString(R.string.half_time_alert_dialog))
                 .setCancelable(false)
-                .setPositiveButton(getString(R.string.confirm),new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
+                .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, change halves
                         setHalfTime();
                     }
                 })
-                .setNegativeButton(getString(R.string.cancel),new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, just close
                         // the dialog box and do nothing
                         dialog.cancel();
@@ -490,8 +488,39 @@ public class MainActivity extends Activity implements View.OnClickListener, List
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        mMenu = menu;
+        mMenu.findItem(R.id.action_delete).setVisible(false);
+
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_delete) {
+
+            FieldDots dotsview = (FieldDots) findViewById(R.id.dots_view);
+
+            Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+
+            invalidateOptionsMenu();
+
+            MainActivity.Dots.remove(selectedDot);
+            selectedDot = null;
+
+            dotsview.clear();
+            dotsview.invalidate();
+
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+//    public boolean onPrepareOptionsMenu(Menu menu) {
+//        System.out.println("prepared");
+//        return super.onPrepareOptionsMenu(menu);
+//    }
 
     public int getHalf() {
         return this.half;
@@ -543,7 +572,7 @@ public class MainActivity extends Activity implements View.OnClickListener, List
 
     // Gestures:
     @Override
-    public boolean onTouchEvent(MotionEvent event){
+    public boolean onTouchEvent(MotionEvent event) {
         this.mDetector.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
@@ -614,8 +643,8 @@ public class MainActivity extends Activity implements View.OnClickListener, List
                     scoreButton2.setText("" + scoreA);
                 }
                 break;
-            }
         }
+    }
 
 }
 

@@ -9,6 +9,8 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -293,7 +295,16 @@ public class FieldDots extends View implements View.OnTouchListener {
                     setColor(Color.BLACK);
                     clear();
                     mCanvas.drawCircle(drawx, drawy, 30, mPaint);
+
+                    //MenuItem deletebutton = (MenuItem) findViewById(R.menu..action_delete);
+                    //deletebutton.setVisible(true);
+                    //View deletebutton = (View) findViewById(R.id.action_delete);
+                    //deletebutton.setVisibility(View.GONE);
+
                     System.out.println("longpress x, y " + drawx + " , " + drawy);
+                    MainActivity.selectedDot = minDot;
+                    MainActivity.mMenu.findItem(R.id.action_delete).setVisible(true);
+
                     invalidate();
                 }
             } else {
