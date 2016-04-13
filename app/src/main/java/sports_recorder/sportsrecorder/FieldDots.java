@@ -231,6 +231,8 @@ public class FieldDots extends View implements View.OnTouchListener {
             float userX = event.getX();
             float userY = event.getY();
 
+
+
             if (MainActivity.Dots != null) {
                 System.out.println("longpress1");
                 float minDiff = 2500;
@@ -243,8 +245,23 @@ public class FieldDots extends View implements View.OnTouchListener {
                         break;
                     }  */
 
-                    float diff = ((d.x - userX) * (d.x - userX) + (d.y - userY) * (d.y - userY));
+                    float dotX;
+                    float dotY;
+
+                    if (isPortrait()) {
+                        dotX = d.x * mBitmap.getWidth();
+                        dotY = d.y * mBitmap.getHeight();
+                    } else {
+                        dotX = d.y * mBitmap.getWidth();
+                        dotY = (1 - d.x) * mBitmap.getHeight();
+                    }
+
+//                    float diff = ((d.x - userX) * (d.x - userX) + (d.y - userY) * (d.y - userY));
+                    float diff = ((dotX - userX) * (dotX - userX) + (dotY - userY) * (dotY - userY));
+
+                    System.out.println("userX=" + userX + " userY=" + userY + " dotX=" + dotX + "dotY=" + dotY);
                     if (diff <= minDiff || minDot == null) {
+                        System.out.println("minDiff=" + minDiff + " current diff=" + diff);
                         minDot = d;
                         minDiff = diff;
                     }
@@ -270,7 +287,8 @@ public class FieldDots extends View implements View.OnTouchListener {
                     }
 //        System.out.println();
                     //setColorByEvent(minDot.type);
-                    setColor(getResources().getColor(R.color.gold));
+//                    setColor(getResources().getColor(R.color.gold));
+                    setColor(Color.BLACK);
 
                     mCanvas.drawCircle(drawx, drawy, 30, mPaint);
                     System.out.println("longpress x, y " + drawx + " , " + drawy);
