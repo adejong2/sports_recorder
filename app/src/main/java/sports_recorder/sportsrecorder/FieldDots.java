@@ -289,7 +289,7 @@ public class FieldDots extends View implements View.OnTouchListener {
                     //setColorByEvent(minDot.type);
 //                    setColor(getResources().getColor(R.color.gold));
                     setColor(Color.BLACK);
-
+                    clear();
                     mCanvas.drawCircle(drawx, drawy, 30, mPaint);
                     System.out.println("longpress x, y " + drawx + " , " + drawy);
                     invalidate();
