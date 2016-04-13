@@ -33,4 +33,5 @@
     <string name="confirm">Confirm</string>
     <string name="half_time_alert_title">Half Time</string>
     <string name="half_time_alert_dialog">Continue to second half?</string>
+    <string name="saved_prev_event_type">Saved Previous Event Type</string>
 </resources>

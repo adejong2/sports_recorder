@@ -221,6 +221,8 @@ public class FieldDots extends View implements View.OnTouchListener {
         @Override
         public boolean onDoubleTap(MotionEvent event) {
             System.out.println(DEBUG_TAG + "onDoubleTap: " + event.toString());
+            MainActivity.setPrevEventType();
+            mySingleTap(event);
             return true;
         }
 

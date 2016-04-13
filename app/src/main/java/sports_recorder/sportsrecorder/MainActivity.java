@@ -48,6 +48,7 @@ public class MainActivity extends Activity implements View.OnClickListener, List
     public static ArrayList<Dot> Dots;
     public static int timeOnClock;      // Time of player on field
     public static int eventType = R.string.event_type_null;
+    public static int prevEventType = R.string.event_type_null;
     public boolean clockIsRunning;      // True if the clock should immediately start running
     public boolean dirtyClock = false;  // True if there are pending changes to timeOnClock
     public int scoreA, scoreB, half, halfScoreA, halfScoreB;
@@ -178,6 +179,7 @@ public class MainActivity extends Activity implements View.OnClickListener, List
             this.shots = savedInstanceState.getInt(getString(R.string.saved_shots), 0);
             this.penalties = savedInstanceState.getInt(getString(R.string.saved_penalties), 0);
             this.gameDateStr = savedInstanceState.getString(getString(R.string.saved_game_date), "");
+            prevEventType = savedInstanceState.getInt(getString(R.string.saved_prev_event_type), R.string.event_type_null);
         } else {
             // Probably initialize members with default values for a new instance
             Dots = new ArrayList<>();
@@ -375,6 +377,7 @@ public class MainActivity extends Activity implements View.OnClickListener, List
         savedInstanceState.putInt(getString(R.string.saved_shots), shots);
         savedInstanceState.putInt(getString(R.string.saved_penalties), penalties);
         savedInstanceState.putString(getString(R.string.saved_game_date), gameDateStr);
+        savedInstanceState.putInt(getString(R.string.saved_prev_event_type), prevEventType);
 
         // Update the game at position 0 to this game:
         gm.setGame(0, savedInstanceState, getApplicationContext());
@@ -385,7 +388,13 @@ public class MainActivity extends Activity implements View.OnClickListener, List
         return eventType;
     }
 
+    public static void setPrevEventType() {
+        eventType = prevEventType;
+    }
+
     public static void resetEventType() {
+        if (eventType != R.string.event_type_null)
+            prevEventType = eventType;
         eventType = R.string.event_type_null;
     }
 
