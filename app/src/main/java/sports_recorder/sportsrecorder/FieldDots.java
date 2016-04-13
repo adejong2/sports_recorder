@@ -333,6 +333,13 @@ public class FieldDots extends View implements View.OnTouchListener {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
 
+                //clear();
+                //invalidate();
+                if (MainActivity.mMenu.findItem(R.id.action_delete).isVisible()) {
+                    MainActivity.mMenu.findItem(R.id.action_delete).setVisible(false);
+                }
+
+
                 // If the event type is uninitialized, skip it
                 if (MainActivity.getEventType() == R.string.event_type_null) {
                     Toast.makeText(getContext(), "Select event type below", Toast.LENGTH_SHORT).show();
