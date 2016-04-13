@@ -15,6 +15,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v4.widget.DrawerLayout;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -509,7 +510,6 @@ public class MainActivity extends Activity implements View.OnClickListener, List
 
             dotsview.clear();
             dotsview.invalidate();
-
 
             return true;
         }

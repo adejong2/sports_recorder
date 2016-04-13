@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -232,11 +233,8 @@ public class FieldDots extends View implements View.OnTouchListener {
         @Override
         public void onLongPress(MotionEvent event) {
             System.out.println(DEBUG_TAG + "onLongPress: " + event.toString());
-            //Toast.makeText(getContext(), "Long Pressed", Toast.LENGTH_SHORT).show();
             float userX = event.getX();
             float userY = event.getY();
-
-
 
             if (MainActivity.Dots != null) {
                 System.out.println("longpress1");
@@ -274,6 +272,10 @@ public class FieldDots extends View implements View.OnTouchListener {
 
                 if (minDot != null) {
                     MainActivity main = (MainActivity) getContext();
+
+                    Vibrator v = (Vibrator) main.getSystemService(Context.VIBRATOR_SERVICE);
+                    v.vibrate(150);
+
                     if (minDot.half != main.getHalf()) {
                         System.out.println("longpress wrong half");
                         return;
@@ -297,12 +299,8 @@ public class FieldDots extends View implements View.OnTouchListener {
                     clear();
                     mCanvas.drawCircle(drawx, drawy, 30, mPaint);
 
-                    //MenuItem deletebutton = (MenuItem) findViewById(R.menu..action_delete);
-                    //deletebutton.setVisible(true);
-                    //View deletebutton = (View) findViewById(R.id.action_delete);
-                    //deletebutton.setVisibility(View.GONE);
-
                     System.out.println("longpress x, y " + drawx + " , " + drawy);
+
                     MainActivity.selectedDot = minDot;
                     MainActivity.mMenu.findItem(R.id.action_delete).setVisible(true);
 
